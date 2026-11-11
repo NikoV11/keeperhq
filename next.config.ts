@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Every page reads the Supabase auth cookie (the header reflects login state), so
+  // routes are dynamic by nature and the prerender-first model doesn't apply here.
+  cacheComponents: false,
   turbopack: {
     rules: {
       "*.css": {
