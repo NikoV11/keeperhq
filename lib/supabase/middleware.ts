@@ -1,12 +1,19 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isSupabaseConfigured, SUPABASE_URL, SUPABASE_ANON_KEY } from "./config";
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
+  // No backend yet: skip the auth round-trip so public pages still serve. Protected
+  // routes below would have no session to find anyway.
+  if (!isSupabaseConfigured) {
+    return response;
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {
