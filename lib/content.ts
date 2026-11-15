@@ -1,4 +1,14 @@
 import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
+import {
+  SEED_TESTIMONIALS,
+  SEED_TEAM,
+  SEED_PACKAGES,
+  SEED_SC_PROGRAMS,
+  SEED_LEGAL,
+  SEED_SITE_TEXT,
+  SEED_OPERATING_HOURS,
+} from "@/content/preview-seed";
 
 // Shapes mirror the tables created in 0005_editable_content.sql.
 export type TeamMember = {
@@ -76,21 +86,8 @@ export type SiteText = {
   contact_email: string;
 };
 
-const FALLBACK_SITE_TEXT: SiteText = {
-  tagline: "Develop Your Game. Anywhere. Anytime.",
-  hero_description:
-    "Online goalkeeper development combining structured technical training, individual feedback, game analysis, and physical performance development.",
-  cta: "Start today and take your goalkeeping game to the next level.",
-  contact_email: "info@keeperhq.com",
-};
-
-const FALLBACK_HOURS: OperatingHours = {
-  summary: "Support hours to be confirmed.",
-  timezone: "ET",
-  note: "Training library available 24/7. Live support, evaluations, and Zoom sessions run during scheduled availability.",
-};
-
 export async function getTeamMembers(): Promise<TeamMember[]> {
+  if (!isSupabaseConfigured) return SEED_TEAM;
   const supabase = await createClient();
   const { data } = await supabase
     .from("team_members")
@@ -101,6 +98,7 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
 }
 
 export async function getTeamMemberBySlug(slug: string): Promise<TeamMember | null> {
+  if (!isSupabaseConfigured) return SEED_TEAM.find((m) => m.slug === slug) ?? null;
   const supabase = await createClient();
   const { data } = await supabase
     .from("team_members")
@@ -114,6 +112,13 @@ export async function getTestimonials(filters?: {
   kind?: "video" | "written";
   category?: TestimonialCategory;
 }): Promise<Testimonial[]> {
+  if (!isSupabaseConfigured) {
+    return SEED_TESTIMONIALS.filter(
+      (t) =>
+        (!filters?.kind || t.kind === filters.kind) &&
+        (!filters?.category || t.category === filters.category)
+    );
+  }
   const supabase = await createClient();
   let query = supabase.from("testimonials").select("*").eq("published", true);
   if (filters?.kind) query = query.eq("kind", filters.kind);
@@ -132,12 +137,14 @@ export function getGoalkeepers() {
 }
 
 export async function getLegalDocuments(): Promise<LegalDocument[]> {
+  if (!isSupabaseConfigured) return SEED_LEGAL;
   const supabase = await createClient();
   const { data } = await supabase.from("legal_documents").select("*").order("sort_order");
   return (data as LegalDocument[]) ?? [];
 }
 
 export async function getLegalDocument(slug: string): Promise<LegalDocument | null> {
+  if (!isSupabaseConfigured) return SEED_LEGAL.find((d) => d.slug === slug) ?? null;
   const supabase = await createClient();
   const { data } = await supabase
     .from("legal_documents")
@@ -148,12 +155,14 @@ export async function getLegalDocument(slug: string): Promise<LegalDocument | nu
 }
 
 export async function getPackages(): Promise<MembershipPackage[]> {
+  if (!isSupabaseConfigured) return SEED_PACKAGES;
   const supabase = await createClient();
   const { data } = await supabase.from("membership_packages").select("*").order("sort_order");
   return (data as MembershipPackage[]) ?? [];
 }
 
 export async function getSCPrograms(): Promise<SCProgramRow[]> {
+  if (!isSupabaseConfigured) return SEED_SC_PROGRAMS;
   const supabase = await createClient();
   const { data } = await supabase
     .from("sc_programs")
@@ -164,17 +173,18 @@ export async function getSCPrograms(): Promise<SCProgramRow[]> {
 }
 
 async function getConfig<T>(key: string, fallback: T): Promise<T> {
+  if (!isSupabaseConfigured) return fallback;
   const supabase = await createClient();
   const { data } = await supabase.from("app_config").select("value").eq("key", key).maybeSingle();
   return (data?.value as T) ?? fallback;
 }
 
 export function getOperatingHours() {
-  return getConfig<OperatingHours>("operating_hours", FALLBACK_HOURS);
+  return getConfig<OperatingHours>("operating_hours", SEED_OPERATING_HOURS);
 }
 
 export function getSiteText() {
-  return getConfig<SiteText>("site_text", FALLBACK_SITE_TEXT);
+  return getConfig<SiteText>("site_text", SEED_SITE_TEXT);
 }
 
 export function getSocialLinks() {
