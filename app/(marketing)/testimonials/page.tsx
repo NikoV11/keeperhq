@@ -1,9 +1,16 @@
 import { Section, SectionHeading } from "@/components/section";
-import { VIDEO_TESTIMONIALS, WRITTEN_TESTIMONIALS } from "@/content/testimonials";
+import { MediaImage } from "@/components/media-image";
+import { getTestimonials } from "@/lib/content";
+import { publicMediaUrl } from "@/lib/media";
 
 export const metadata = { title: "Testimonials | KeeperHQ" };
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
+  const [videos, written] = await Promise.all([
+    getTestimonials("video"),
+    getTestimonials("written"),
+  ]);
+
   return (
     <>
       <Section>
@@ -12,38 +19,61 @@ export default function TestimonialsPage() {
           title="Goalkeeper & parent testimonials"
           subtitle="What goalkeepers and families say about training with KeeperHQ."
         />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {VIDEO_TESTIMONIALS.map((t) => (
-            <div key={t.id} className="rounded-xl border border-gray-200 p-5">
-              <div className="mb-3 aspect-video rounded-lg bg-brand-gray-light" />
-              <p className="font-semibold text-brand-black">{t.name}</p>
-              <p className="text-sm text-brand-gray">{t.affiliation}</p>
-              {t.quote && <p className="mt-2 text-sm text-brand-gray">&ldquo;{t.quote}&rdquo;</p>}
-              <button
-                disabled
-                className="mt-3 rounded-lg border border-gray-300 px-4 py-2 text-xs font-semibold text-brand-gray"
-              >
-                WATCH TESTIMONIAL
-              </button>
-            </div>
-          ))}
-        </div>
+        {videos.length === 0 ? (
+          <p className="text-sm text-brand-gray">Video testimonials coming soon.</p>
+        ) : (
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {videos.map((t) => {
+              const videoUrl = publicMediaUrl(t.video_path);
+              return (
+                <div key={t.id} className="rounded-xl border border-gray-200 p-5">
+                  {videoUrl ? (
+                    <video
+                      controls
+                      preload="metadata"
+                      poster={publicMediaUrl(t.thumbnail_path) ?? undefined}
+                      className="mb-3 aspect-video w-full rounded-lg bg-black"
+                    >
+                      <source src={videoUrl} />
+                    </video>
+                  ) : (
+                    <MediaImage
+                      path={t.thumbnail_path}
+                      alt={t.name}
+                      className="mb-3 aspect-video w-full rounded-lg object-cover"
+                    />
+                  )}
+                  <p className="font-semibold text-brand-black">
+                    {t.name}
+                    {t.age && <span className="font-normal text-brand-gray">, {t.age}</span>}
+                  </p>
+                  <p className="text-sm text-brand-gray">{t.affiliation}</p>
+                  {t.quote && <p className="mt-2 text-sm text-brand-gray">&ldquo;{t.quote}&rdquo;</p>}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </Section>
 
-      <Section className="bg-brand-gray-light">
-        <SectionHeading title="Written testimonials" subtitle="Prefer to read rather than watch?" />
-        <div className="grid gap-4 sm:grid-cols-2">
-          {WRITTEN_TESTIMONIALS.map((t) => (
-            <blockquote key={t.id} className="rounded-xl bg-white p-6 shadow-sm">
-              <p className="text-sm text-brand-black">&ldquo;{t.quote}&rdquo;</p>
-              <footer className="mt-3 text-sm font-semibold text-brand-black">
-                {t.name}
-                <span className="font-normal text-brand-gray"> — {t.affiliation}</span>
-              </footer>
-            </blockquote>
-          ))}
-        </div>
-      </Section>
+      {written.length > 0 && (
+        <Section className="bg-brand-gray-light">
+          <SectionHeading title="Written testimonials" subtitle="Prefer to read rather than watch?" />
+          <div className="grid gap-4 sm:grid-cols-2">
+            {written.map((t) => (
+              <blockquote key={t.id} className="rounded-xl bg-white p-6 shadow-sm">
+                <p className="text-sm text-brand-black">&ldquo;{t.quote}&rdquo;</p>
+                <footer className="mt-3 text-sm font-semibold text-brand-black">
+                  {t.name}
+                  {t.affiliation && (
+                    <span className="font-normal text-brand-gray"> — {t.affiliation}</span>
+                  )}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </Section>
+      )}
     </>
   );
 }

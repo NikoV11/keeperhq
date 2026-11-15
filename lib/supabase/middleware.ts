@@ -35,21 +35,23 @@ export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const isDashboard = path.startsWith("/dashboard");
   const isCoach = path.startsWith("/coach");
+  const isAdmin = path.startsWith("/admin");
 
-  if (!user && (isDashboard || isCoach)) {
+  if (!user && (isDashboard || isCoach || isAdmin)) {
     const redirectUrl = new URL("/login", request.url);
     redirectUrl.searchParams.set("next", path);
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (user && isCoach) {
+  if (user && (isCoach || isAdmin)) {
     const { data: profile } = await supabase
       .from("profiles")
       .select("role")
       .eq("id", user.id)
       .single();
 
-    if (!profile || !["coach", "admin"].includes(profile.role)) {
+    const allowed = isAdmin ? ["admin"] : ["coach", "admin"];
+    if (!profile || !allowed.includes(profile.role)) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   }

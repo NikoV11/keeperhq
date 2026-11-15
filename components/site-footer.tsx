@@ -1,7 +1,14 @@
 import Link from "next/link";
-import { SITE, FOOTER_LINKS, LEGAL_LINKS, OPERATING_HOURS, SOCIAL_LINKS, CONTACT_EMAIL } from "@/content/site";
+import { FOOTER_LINKS, LEGAL_LINKS } from "@/content/site";
+import { getSiteText, getOperatingHours, getSocialLinks } from "@/lib/content";
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const [siteText, hours, social] = await Promise.all([
+    getSiteText(),
+    getOperatingHours(),
+    getSocialLinks(),
+  ]);
+
   return (
     <footer className="bg-brand-black text-gray-300">
       <div className="mx-auto max-w-7xl px-4 py-12">
@@ -10,12 +17,27 @@ export function SiteFooter() {
             <p className="text-lg font-bold text-brand-white">
               KEEPER<span className="text-brand-green-light">HQ</span>
             </p>
-            <p className="mt-2 text-sm">{SITE.tagline}</p>
-            <p className="mt-4 text-sm">{CONTACT_EMAIL}</p>
-            {SOCIAL_LINKS.length > 0 && (
-              <div className="mt-3 flex gap-3">
-                {SOCIAL_LINKS.map((s) => (
-                  <a key={s.href} href={s.href} className="text-sm hover:text-white">{s.label}</a>
+            <p className="mt-2 text-sm">{siteText.tagline}</p>
+            {siteText.contact_email && (
+              <a
+                href={`mailto:${siteText.contact_email}`}
+                className="mt-4 block text-sm hover:text-white"
+              >
+                {siteText.contact_email}
+              </a>
+            )}
+            {social.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-3">
+                {social.map((s) => (
+                  <a
+                    key={s.href}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-white"
+                  >
+                    {s.label}
+                  </a>
                 ))}
               </div>
             )}
@@ -45,13 +67,16 @@ export function SiteFooter() {
 
           <div>
             <p className="text-sm font-semibold text-brand-white">Operating Hours</p>
-            <p className="mt-3 text-sm">{OPERATING_HOURS.summary}</p>
-            <p className="mt-2 text-sm text-gray-400">{OPERATING_HOURS.note}</p>
+            <p className="mt-3 text-sm">
+              {hours.summary}
+              {hours.timezone && <span> ({hours.timezone})</span>}
+            </p>
+            <p className="mt-2 text-sm text-gray-400">{hours.note}</p>
           </div>
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-gray-500">
-          &copy; {new Date().getFullYear()} KeeperHQ. {SITE.tagline}
+          &copy; {new Date().getFullYear()} KeeperHQ. {siteText.tagline}
         </div>
       </div>
     </footer>

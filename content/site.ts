@@ -1,22 +1,6 @@
-export const SITE = {
-  name: "KeeperHQ",
-  tagline: "Develop Your Game. Anywhere. Anytime.",
-  cta: "Start today and take your goalkeeping game to the next level.",
-  description:
-    "Online goalkeeper development combining structured technical training, individual feedback, game analysis, and physical performance development.",
-};
-
-// PLACEHOLDER: final hours and time zone to be confirmed before launch.
-export const OPERATING_HOURS = {
-  summary: "Support hours to be confirmed — final KeeperHQ hours will be published here.",
-  timezone: "ET",
-  note: "Training library available 24/7. Live support, evaluations, and Zoom sessions run during scheduled availability.",
-};
-
-// PLACEHOLDER: final social links and contact details pending.
-export const SOCIAL_LINKS: { label: string; href: string }[] = [];
-
-export const CONTACT_EMAIL = "info@keeperhq.com";
+// Structural site content only. Everything a client would want to edit — taglines,
+// prices, bios, testimonials, operating hours, legal text — lives in the database and
+// is managed from /admin. See lib/content.ts for those readers.
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -56,15 +40,4 @@ export const HOW_IT_WORKS = [
   { step: "Upload", detail: "Submit selected training clips before the evaluation." },
   { step: "Get Feedback", detail: "Receive individual coaching feedback." },
   { step: "Improve", detail: "Apply the feedback and repeat the process." },
-];
-
-export const TRAINING_CATEGORIES = [
-  { key: "handling", label: "Handling & Scoop Technique" },
-  { key: "set_position", label: "Set Position, Movement & Footwork" },
-  { key: "diving", label: "Collapse Dive & Low Dive" },
-  { key: "crosses", label: "Crosses, Covering Crosses & Covering Space" },
-  { key: "distribution", label: "Distribution, Rolling & Long Throws" },
-  { key: "passing", label: "Inside-Foot, One-Touch & Two-Touch Passing" },
-  { key: "indoor", label: "Indoor / Home Exercises" },
-  { key: "outdoor", label: "Outdoor Exercises" },
 ];

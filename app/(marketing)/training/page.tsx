@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Section, SectionHeading } from "@/components/section";
-import { TRAINING_CATEGORIES } from "@/content/site";
+import { CATEGORY_LABELS } from "@/lib/training-categories";
 
 export const metadata = { title: "Training Library | KeeperHQ" };
 
@@ -25,9 +25,9 @@ export default async function TrainingPage() {
           subtitle="Individual and partner exercises, indoor and outdoor variations — so you always know exactly what to work on next, wherever you are."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {TRAINING_CATEGORIES.map((cat) => (
-            <div key={cat.key} className="rounded-xl border border-gray-200 p-5">
-              <p className="font-semibold text-brand-black">{cat.label}</p>
+          {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
+            <div key={key} className="rounded-xl border border-gray-200 p-5">
+              <p className="font-semibold text-brand-black">{label}</p>
             </div>
           ))}
         </div>

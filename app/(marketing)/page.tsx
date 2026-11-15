@@ -1,15 +1,34 @@
 import Link from "next/link";
-import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { Section, SectionHeading } from "@/components/section";
 import { PackageCards } from "@/components/package-cards";
-import { SITE, HOW_IT_WORKS, TRAINING_CATEGORIES, OPERATING_HOURS } from "@/content/site";
-import { TEAM } from "@/content/team";
-import { VIDEO_TESTIMONIALS, WRITTEN_TESTIMONIALS, GOALKEEPERS } from "@/content/testimonials";
-import { SC_PROGRAMS, SC_BUNDLE, SC_CUSTOM } from "@/content/sc-programs";
+import { MediaImage } from "@/components/media-image";
+import { IntroVideo } from "@/components/intro-video";
+import { HOW_IT_WORKS } from "@/content/site";
+import { CATEGORY_LABELS } from "@/lib/training-categories";
+import {
+  getTeamMembers,
+  getTestimonials,
+  getGoalkeepers,
+  getSCPrograms,
+  getSiteText,
+  getOperatingHours,
+} from "@/lib/content";
 
 export default async function HomePage() {
   const supabase = await createClient();
+
+  const [siteText, team, videoTestimonials, writtenTestimonials, goalkeepers, scPrograms, hours] =
+    await Promise.all([
+      getSiteText(),
+      getTeamMembers(),
+      getTestimonials("video"),
+      getTestimonials("written"),
+      getGoalkeepers(),
+      getSCPrograms(),
+      getOperatingHours(),
+    ]);
+
   const { data: freeVideos } = await supabase
     .from("training_videos")
     .select("id, title, description")
@@ -18,7 +37,9 @@ export default async function HomePage() {
     .order("sort_order")
     .limit(3);
 
-  const featuredTestimonials = VIDEO_TESTIMONIALS.filter((t) => t.featured).slice(0, 3);
+  const featured = videoTestimonials.filter((t) => t.featured).slice(0, 3);
+  const corePrograms = scPrograms.filter((p) => p.category === "program");
+  const extraPrograms = scPrograms.filter((p) => p.category !== "program");
 
   return (
     <>
@@ -38,10 +59,10 @@ export default async function HomePage() {
             KEEPER<span className="text-brand-green-light">HQ</span>
           </h1>
           <p className="mt-3 text-lg font-semibold uppercase tracking-[0.2em] text-brand-green-light sm:text-xl">
-            {SITE.tagline}
+            {siteText.tagline}
           </p>
-          <p className="mt-6 max-w-2xl text-gray-300">{SITE.description}</p>
-          <p className="mt-4 max-w-2xl font-medium">{SITE.cta}</p>
+          <p className="mt-6 max-w-2xl text-gray-300">{siteText.hero_description}</p>
+          <p className="mt-4 max-w-2xl font-medium">{siteText.cta}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/register" className="rounded-lg bg-brand-green px-6 py-3 text-sm font-semibold hover:bg-brand-green-dark">
               START FREE TRIAL
@@ -57,17 +78,13 @@ export default async function HomePage() {
       </section>
 
       {/* 2. Introduction video */}
-      <Section>
+      <Section id="intro">
         <SectionHeading
           eyebrow="Meet KeeperHQ"
           title="Who we are and why we built this"
-          subtitle="Stefan and Jack introduce the KeeperHQ coaching philosophy, how the online model works, and exactly what members receive."
+          subtitle="Our coaches introduce the KeeperHQ coaching philosophy, how the online model works, and exactly what members receive."
         />
-        <div className="aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-brand-gray-light">
-          <div className="flex h-full items-center justify-center text-sm text-brand-gray">
-            Introduction video coming soon.
-          </div>
-        </div>
+        <IntroVideo />
       </Section>
 
       {/* 3. How KeeperHQ Works */}
@@ -94,7 +111,7 @@ export default async function HomePage() {
         <SectionHeading
           eyebrow="No Card Required"
           title="Start with a free trial"
-          subtitle="Create a free account and get access to selected goalkeeper training videos — handling, movement and set position, and low diving."
+          subtitle="Create a free account and get access to selected goalkeeper training videos."
         />
         <div className="grid gap-4 sm:grid-cols-3">
           {(freeVideos && freeVideos.length > 0
@@ -130,9 +147,9 @@ export default async function HomePage() {
           subtitle="Individual and partner exercises, indoor and outdoor — structured so you always know what to work on next."
         />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {TRAINING_CATEGORIES.map((cat) => (
-            <div key={cat.key} className="rounded-xl bg-white p-4 text-sm font-medium shadow-sm">
-              {cat.label}
+          {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
+            <div key={key} className="rounded-xl bg-white p-4 text-sm font-medium shadow-sm">
+              {label}
             </div>
           ))}
         </div>
@@ -157,7 +174,7 @@ export default async function HomePage() {
           dark
           eyebrow="One-Time Service"
           title="Individual Game Video Analysis"
-          subtitle="$39.99 — a full breakdown of one of your games, reviewed 1-on-1 with a KeeperHQ coach on Zoom."
+          subtitle="A full breakdown of one of your games, reviewed 1-on-1 with a KeeperHQ coach on Zoom."
         />
         <div className="grid gap-8 lg:grid-cols-2">
           <ol className="space-y-3">
@@ -194,31 +211,28 @@ export default async function HomePage() {
         <SectionHeading
           eyebrow="KeeperHQ x TAP"
           title="Strength & Conditioning built for goalkeepers"
-          subtitle="Goalkeeper-specific physical development with Paul Olla and Train.Adapt.Peak."
+          subtitle="Goalkeeper-specific physical development with Train.Adapt.Peak."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {SC_PROGRAMS.map((program) => (
+          {corePrograms.map((program) => (
             <div key={program.key} className="rounded-xl border border-gray-200 p-5">
               <p className="font-semibold">{program.title}</p>
               <p className="mt-1 text-sm text-brand-gray">{program.focus}</p>
-              <p className="mt-2 text-sm font-medium">{program.priceRange}</p>
+              <p className="mt-2 text-sm font-medium">{program.price_display}</p>
             </div>
           ))}
         </div>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl bg-brand-gray-light p-5">
-            <p className="font-semibold">{SC_BUNDLE.title}</p>
-            <p className="mt-1 text-sm text-brand-gray">{SC_BUNDLE.focus}</p>
-            <p className="mt-2 text-sm font-medium">{SC_BUNDLE.priceRange}</p>
+        {extraPrograms.length > 0 && (
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            {extraPrograms.map((program) => (
+              <div key={program.key} className="rounded-xl bg-brand-gray-light p-5">
+                <p className="font-semibold">{program.title}</p>
+                <p className="mt-1 text-sm text-brand-gray">{program.focus}</p>
+                <p className="mt-2 text-sm font-medium">{program.price_display}</p>
+              </div>
+            ))}
           </div>
-          <div className="rounded-xl bg-brand-gray-light p-5">
-            <p className="font-semibold">{SC_CUSTOM.title}</p>
-            <p className="mt-1 text-sm text-brand-gray">{SC_CUSTOM.focus}</p>
-            <p className="mt-2 text-sm font-medium">
-              {SC_CUSTOM.priceRangeOneTime} or {SC_CUSTOM.priceRangeMonthly}
-            </p>
-          </div>
-        </div>
+        )}
         <div className="mt-8 flex flex-wrap gap-3">
           <Link href="/strength-conditioning" className="rounded-lg bg-brand-green px-6 py-3 text-sm font-semibold text-white hover:bg-brand-green-dark">
             View S&C Programs
@@ -234,98 +248,98 @@ export default async function HomePage() {
       </Section>
 
       {/* 9. Meet the Team */}
-      <Section className="bg-brand-gray-light">
-        <SectionHeading eyebrow="About Us" title="Meet the KeeperHQ team" />
-        <div className="grid gap-6 sm:grid-cols-3">
-          {TEAM.map((member) => (
-            <div key={member.slug} className="rounded-xl bg-white p-5 shadow-sm">
-              <Image
-                src={member.photoPath}
-                alt={member.name}
-                width={400}
-                height={400}
-                className="mb-4 aspect-square w-full rounded-lg object-cover"
-              />
-              <p className="font-semibold">{member.name}</p>
-              <p className="text-sm text-brand-green">{member.role}</p>
-              <p className="mt-2 text-sm text-brand-gray">{member.shortBio}</p>
-              <Link href={`/about/${member.slug}`} className="mt-3 inline-block text-sm font-semibold text-brand-green">
-                Full Profile &rarr;
-              </Link>
-            </div>
-          ))}
-        </div>
-      </Section>
+      {team.length > 0 && (
+        <Section className="bg-brand-gray-light">
+          <SectionHeading eyebrow="About Us" title="Meet the KeeperHQ team" />
+          <div className="grid gap-6 sm:grid-cols-3">
+            {team.map((member) => (
+              <div key={member.id} className="rounded-xl bg-white p-5 shadow-sm">
+                <MediaImage
+                  path={member.photo_path}
+                  alt={member.name}
+                  className="mb-4 aspect-square w-full rounded-lg object-cover"
+                />
+                <p className="font-semibold">{member.name}</p>
+                <p className="text-sm text-brand-green">{member.role_title}</p>
+                <p className="mt-2 text-sm text-brand-gray">{member.short_bio}</p>
+                <Link href={`/about/${member.slug}`} className="mt-3 inline-block text-sm font-semibold text-brand-green">
+                  Full Profile &rarr;
+                </Link>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* 10. Goalkeepers We've Worked With */}
-      <Section>
-        <SectionHeading
-          eyebrow="Track Record"
-          title="Goalkeepers we have worked with"
-          subtitle="Real goalkeepers, real levels, real development."
-        />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {GOALKEEPERS.map((gk) => (
-            <div key={gk.id} className="rounded-xl border border-gray-200 p-4">
-              <Image
-                src={gk.photoPath}
-                alt={gk.name}
-                width={400}
-                height={400}
-                className="mb-3 aspect-square w-full rounded-lg object-cover"
-              />
-              <p className="font-semibold">{gk.name}</p>
-              <p className="text-sm text-brand-gray">{gk.affiliation}</p>
-              <p className="text-sm text-brand-gray">{gk.level}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      {goalkeepers.length > 0 && (
+        <Section>
+          <SectionHeading
+            eyebrow="Track Record"
+            title="Goalkeepers we have worked with"
+            subtitle="Real goalkeepers, real levels, real development."
+          />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {goalkeepers.map((gk) => (
+              <div key={gk.id} className="rounded-xl border border-gray-200 p-4">
+                <MediaImage
+                  path={gk.photo_path}
+                  alt={gk.name}
+                  className="mb-3 aspect-square w-full rounded-lg object-cover"
+                />
+                <p className="font-semibold">{gk.name}</p>
+                <p className="text-sm text-brand-gray">{gk.affiliation}</p>
+                <p className="text-sm text-brand-gray">{gk.level}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* 11. Video Testimonials */}
-      <Section dark>
-        <SectionHeading
-          dark
-          eyebrow="Testimonials"
-          title="Hear it from our goalkeepers"
-          subtitle="Goalkeepers and parents on what training with KeeperHQ changed for them."
-        />
-        <div className="grid gap-5 sm:grid-cols-3">
-          {featuredTestimonials.map((t) => (
-            <div key={t.id} className="rounded-xl bg-white/5 p-5">
-              <div className="mb-3 aspect-video rounded-lg bg-white/10" />
-              <p className="font-semibold">{t.name}</p>
-              <p className="text-sm text-gray-400">{t.affiliation}</p>
-              {t.quote && <p className="mt-2 text-sm text-gray-300">&ldquo;{t.quote}&rdquo;</p>}
-              <button
-                disabled
-                className="mt-3 rounded-lg border border-white/20 px-4 py-2 text-xs font-semibold text-gray-400"
-              >
-                WATCH TESTIMONIAL
-              </button>
-            </div>
-          ))}
-        </div>
-        <Link href="/testimonials" className="mt-8 inline-block rounded-lg bg-brand-green px-6 py-3 text-sm font-semibold hover:bg-brand-green-dark">
-          VIEW ALL TESTIMONIALS
-        </Link>
-      </Section>
+      {featured.length > 0 && (
+        <Section dark>
+          <SectionHeading
+            dark
+            eyebrow="Testimonials"
+            title="Hear it from our goalkeepers"
+            subtitle="Goalkeepers and parents on what training with KeeperHQ changed for them."
+          />
+          <div className="grid gap-5 sm:grid-cols-3">
+            {featured.map((t) => (
+              <div key={t.id} className="rounded-xl bg-white/5 p-5">
+                <div className="mb-3 aspect-video overflow-hidden rounded-lg bg-white/10">
+                  <MediaImage path={t.thumbnail_path} alt={t.name} className="h-full w-full object-cover" />
+                </div>
+                <p className="font-semibold">{t.name}</p>
+                <p className="text-sm text-gray-400">{t.affiliation}</p>
+                {t.quote && <p className="mt-2 text-sm text-gray-300">&ldquo;{t.quote}&rdquo;</p>}
+              </div>
+            ))}
+          </div>
+          <Link href="/testimonials" className="mt-8 inline-block rounded-lg bg-brand-green px-6 py-3 text-sm font-semibold hover:bg-brand-green-dark">
+            VIEW ALL TESTIMONIALS
+          </Link>
+        </Section>
+      )}
 
       {/* 12. Written Testimonials */}
-      <Section>
-        <SectionHeading title="In their own words" subtitle="Prefer to read? Here's what families tell us." />
-        <div className="grid gap-4 sm:grid-cols-2">
-          {WRITTEN_TESTIMONIALS.map((t) => (
-            <blockquote key={t.id} className="rounded-xl bg-brand-gray-light p-6">
-              <p className="text-sm text-brand-black">&ldquo;{t.quote}&rdquo;</p>
-              <footer className="mt-3 text-sm font-semibold">
-                {t.name}
-                <span className="font-normal text-brand-gray"> — {t.affiliation}</span>
-              </footer>
-            </blockquote>
-          ))}
-        </div>
-      </Section>
+      {writtenTestimonials.length > 0 && (
+        <Section>
+          <SectionHeading title="In their own words" subtitle="Prefer to read? Here's what families tell us." />
+          <div className="grid gap-4 sm:grid-cols-2">
+            {writtenTestimonials.map((t) => (
+              <blockquote key={t.id} className="rounded-xl bg-brand-gray-light p-6">
+                <p className="text-sm text-brand-black">&ldquo;{t.quote}&rdquo;</p>
+                <footer className="mt-3 text-sm font-semibold">
+                  {t.name}
+                  {t.affiliation && <span className="font-normal text-brand-gray"> — {t.affiliation}</span>}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* 13. Free Zoom Call */}
       <Section className="bg-brand-gray-light">
@@ -362,8 +376,11 @@ export default async function HomePage() {
       {/* 15. Operating Hours */}
       <Section className="bg-brand-gray-light">
         <SectionHeading title="Operating hours" />
-        <p className="text-brand-gray">{OPERATING_HOURS.summary}</p>
-        <p className="mt-2 text-brand-gray">{OPERATING_HOURS.note}</p>
+        <p className="text-brand-gray">
+          {hours.summary}
+          {hours.timezone && <span> ({hours.timezone})</span>}
+        </p>
+        <p className="mt-2 text-brand-gray">{hours.note}</p>
       </Section>
 
       {/* 16. Final CTA */}
@@ -373,7 +390,7 @@ export default async function HomePage() {
             Ready to take your goalkeeping game to the next level?
           </h2>
           <p className="mt-4 text-sm font-semibold uppercase tracking-[0.2em] text-brand-green-light">
-            {SITE.tagline}
+            {siteText.tagline}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link href="/register" className="rounded-lg bg-brand-green px-6 py-3 text-sm font-semibold hover:bg-brand-green-dark">

@@ -8,7 +8,7 @@ export default function SchedulePage() {
         <p className="text-brand-gray">Book your evaluation or coaching call directly below.</p>
       </div>
       <div className="rounded-xl bg-white p-2 shadow-sm">
-        <CalEmbed calUsername={process.env.NEXT_PUBLIC_CALCOM_STEFAN} />
+        <CalEmbed coach="stefan" />
       </div>
     </div>
   );

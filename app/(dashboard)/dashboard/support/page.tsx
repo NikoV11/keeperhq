@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { OPERATING_HOURS } from "@/content/site";
+import { getOperatingHours } from "@/lib/content";
 
-export default function SupportPage() {
+export default async function SupportPage() {
+  const hours = await getOperatingHours();
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
@@ -14,7 +15,7 @@ export default function SupportPage() {
           The KeeperHQ training library is available <strong>24/7</strong>. Live support,
           evaluations, and Zoom sessions run during scheduled availability.
         </p>
-        <p className="text-brand-gray">{OPERATING_HOURS.summary}</p>
+        <p className="text-brand-gray">{hours.summary}</p>
         <div className="flex gap-3 pt-2">
           <Link href="/contact" className="rounded-lg bg-brand-green px-4 py-2 font-semibold text-white hover:bg-brand-green-dark">
             Contact Us

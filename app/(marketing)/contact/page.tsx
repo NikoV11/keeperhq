@@ -2,11 +2,12 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Section, SectionHeading } from "@/components/section";
 import { ContactForm } from "./contact-form";
-import { OPERATING_HOURS } from "@/content/site";
+import { getOperatingHours } from "@/lib/content";
 
 export const metadata = { title: "Contact | KeeperHQ" };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const hours = await getOperatingHours();
   return (
     <Section>
       <div className="grid gap-12 lg:grid-cols-[1fr_320px]">
@@ -33,8 +34,8 @@ export default function ContactPage() {
           </div>
           <div className="rounded-xl border border-gray-200 p-6">
             <p className="font-semibold text-brand-black">Operating hours</p>
-            <p className="mt-1 text-sm text-brand-gray">{OPERATING_HOURS.summary}</p>
-            <p className="mt-2 text-sm text-brand-gray">{OPERATING_HOURS.note}</p>
+            <p className="mt-1 text-sm text-brand-gray">{hours.summary}</p>
+            <p className="mt-2 text-sm text-brand-gray">{hours.note}</p>
           </div>
         </aside>
       </div>
