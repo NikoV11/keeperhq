@@ -1,32 +1,62 @@
 import { Section, SectionHeading } from "@/components/section";
+import { TestimonialCard } from "@/components/testimonial-card";
 import { MediaImage } from "@/components/media-image";
 import { getTestimonials } from "@/lib/content";
 import { publicMediaUrl } from "@/lib/media";
+import type { Testimonial } from "@/lib/content";
 
 export const metadata = { title: "Testimonials | KeeperHQ" };
 
+const GROUPS: { category: Testimonial["category"]; title: string; subtitle: string }[] = [
+  {
+    category: "goalkeeper",
+    title: "Goalkeepers",
+    subtitle: "From academy professionals and internationals to college and high-school keepers.",
+  },
+  {
+    category: "coach",
+    title: "Coaches",
+    subtitle: "Head coaches, academy directors, and goalkeeper coaches we've worked alongside.",
+  },
+  {
+    category: "parent",
+    title: "Parents",
+    subtitle: "Families on what changed for their goalkeeper.",
+  },
+];
+
 export default async function TestimonialsPage() {
-  const [videos, written] = await Promise.all([
-    getTestimonials("video"),
-    getTestimonials("written"),
-  ]);
+  const all = await getTestimonials();
+  const videos = all.filter((t) => t.kind === "video");
 
   return (
     <>
       <Section>
         <SectionHeading
-          eyebrow="Testimonials"
-          title="Goalkeeper & parent testimonials"
-          subtitle="What goalkeepers and families say about training with KeeperHQ."
+          eyebrow="Testimonials & References"
+          title="What goalkeepers, coaches, and families say"
+          subtitle="Testimonials retain the wording they were submitted in."
         />
-        {videos.length === 0 ? (
-          <p className="text-sm text-brand-gray">Video testimonials coming soon.</p>
-        ) : (
+        <div className="flex flex-wrap gap-6 text-sm">
+          {GROUPS.map((g) => {
+            const count = all.filter((t) => t.category === g.category && t.kind === "written").length;
+            return (
+              <a key={g.category} href={`#${g.category}`} className="font-medium text-brand-green hover:underline">
+                {count} {g.title.toLowerCase()}
+              </a>
+            );
+          })}
+        </div>
+      </Section>
+
+      {videos.length > 0 && (
+        <Section className="bg-brand-gray-light">
+          <SectionHeading title="Video testimonials" />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {videos.map((t) => {
               const videoUrl = publicMediaUrl(t.video_path);
               return (
-                <div key={t.id} className="rounded-xl border border-gray-200 p-5">
+                <div key={t.id} className="rounded-xl bg-white p-5 shadow-sm">
                   {videoUrl ? (
                     <video
                       controls
@@ -38,42 +68,42 @@ export default async function TestimonialsPage() {
                     </video>
                   ) : (
                     <MediaImage
-                      path={t.thumbnail_path}
+                      path={t.thumbnail_path ?? t.photo_path}
                       alt={t.name}
                       className="mb-3 aspect-video w-full rounded-lg object-cover"
                     />
                   )}
-                  <p className="font-semibold text-brand-black">
-                    {t.name}
-                    {t.age && <span className="font-normal text-brand-gray">, {t.age}</span>}
-                  </p>
-                  <p className="text-sm text-brand-gray">{t.affiliation}</p>
+                  <p className="font-semibold text-brand-black">{t.name}</p>
+                  <p className="text-sm text-brand-gray">{t.affiliation ?? t.profile[0]}</p>
                   {t.quote && <p className="mt-2 text-sm text-brand-gray">&ldquo;{t.quote}&rdquo;</p>}
                 </div>
               );
             })}
           </div>
-        )}
-      </Section>
-
-      {written.length > 0 && (
-        <Section className="bg-brand-gray-light">
-          <SectionHeading title="Written testimonials" subtitle="Prefer to read rather than watch?" />
-          <div className="grid gap-4 sm:grid-cols-2">
-            {written.map((t) => (
-              <blockquote key={t.id} className="rounded-xl bg-white p-6 shadow-sm">
-                <p className="text-sm text-brand-black">&ldquo;{t.quote}&rdquo;</p>
-                <footer className="mt-3 text-sm font-semibold text-brand-black">
-                  {t.name}
-                  {t.affiliation && (
-                    <span className="font-normal text-brand-gray"> — {t.affiliation}</span>
-                  )}
-                </footer>
-              </blockquote>
-            ))}
-          </div>
         </Section>
       )}
+
+      {GROUPS.map((group, i) => {
+        const items = all.filter(
+          (t) => t.category === group.category && t.kind === "written"
+        );
+        if (items.length === 0) return null;
+
+        return (
+          <Section
+            key={group.category}
+            id={group.category}
+            className={i % 2 === 0 ? "" : "bg-brand-gray-light"}
+          >
+            <SectionHeading title={group.title} subtitle={group.subtitle} />
+            <div className="grid items-start gap-5 lg:grid-cols-2">
+              {items.map((t) => (
+                <TestimonialCard key={t.id} testimonial={t} />
+              ))}
+            </div>
+          </Section>
+        );
+      })}
     </>
   );
 }

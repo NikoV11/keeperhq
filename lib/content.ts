@@ -16,28 +16,26 @@ export type TeamMember = {
   published: boolean;
 };
 
+export type TestimonialCategory = "goalkeeper" | "coach" | "parent";
+
 export type Testimonial = {
   id: string;
   kind: "video" | "written";
+  category: TestimonialCategory;
   name: string;
+  slug: string | null;
   affiliation: string | null;
   age: number | null;
+  /** Career/background bullet points shown above the quote. */
+  profile: string[];
   quote: string | null;
+  /** Set when a testimonial was supplied in another language as well. */
+  quote_original: string | null;
+  quote_original_language: string | null;
+  photo_path: string | null;
   video_path: string | null;
   thumbnail_path: string | null;
   featured: boolean;
-  sort_order: number;
-  published: boolean;
-};
-
-export type GoalkeeperCard = {
-  id: string;
-  name: string;
-  affiliation: string | null;
-  level: string | null;
-  coach: string | null;
-  quote: string | null;
-  photo_path: string | null;
   sort_order: number;
   published: boolean;
 };
@@ -112,22 +110,25 @@ export async function getTeamMemberBySlug(slug: string): Promise<TeamMember | nu
   return (data as TeamMember) ?? null;
 }
 
-export async function getTestimonials(kind?: "video" | "written"): Promise<Testimonial[]> {
+export async function getTestimonials(filters?: {
+  kind?: "video" | "written";
+  category?: TestimonialCategory;
+}): Promise<Testimonial[]> {
   const supabase = await createClient();
   let query = supabase.from("testimonials").select("*").eq("published", true);
-  if (kind) query = query.eq("kind", kind);
+  if (filters?.kind) query = query.eq("kind", filters.kind);
+  if (filters?.category) query = query.eq("category", filters.category);
   const { data } = await query.order("sort_order");
   return (data as Testimonial[]) ?? [];
 }
 
-export async function getGoalkeepers(): Promise<GoalkeeperCard[]> {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("goalkeepers")
-    .select("*")
-    .eq("published", true)
-    .order("sort_order");
-  return (data as GoalkeeperCard[]) ?? [];
+/**
+ * "Goalkeepers We Have Worked With" is the goalkeeper slice of the testimonials
+ * table — the same person is both a track-record card and a testimonial, so the
+ * owner only maintains one entry.
+ */
+export function getGoalkeepers() {
+  return getTestimonials({ category: "goalkeeper" });
 }
 
 export async function getLegalDocuments(): Promise<LegalDocument[]> {

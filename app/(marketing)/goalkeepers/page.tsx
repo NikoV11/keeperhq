@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { Section, SectionHeading } from "@/components/section";
-import { MediaImage } from "@/components/media-image";
+import { TestimonialCard } from "@/components/testimonial-card";
 import { getGoalkeepers } from "@/lib/content";
 
 export const metadata = { title: "Goalkeepers We've Worked With | KeeperHQ" };
@@ -12,27 +13,25 @@ export default async function GoalkeepersPage() {
       <SectionHeading
         eyebrow="Track Record"
         title="Goalkeepers we have worked with"
-        subtitle="Real goalkeepers at real levels — the coaching experience behind KeeperHQ."
+        subtitle="From Olympic and World Cup squads to academy professionals, college starters, and high-school keepers."
       />
       {goalkeepers.length === 0 ? (
         <p className="text-sm text-brand-gray">Coming soon.</p>
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {goalkeepers.map((gk) => (
-            <div key={gk.id} className="rounded-xl border border-gray-200 p-5">
-              <MediaImage
-                path={gk.photo_path}
-                alt={gk.name}
-                className="mb-3 aspect-square w-full rounded-lg object-cover"
-              />
-              <p className="font-semibold text-brand-black">{gk.name}</p>
-              <p className="text-sm text-brand-gray">{gk.affiliation}</p>
-              <p className="text-sm text-brand-gray">{gk.level}</p>
-              {gk.coach && <p className="mt-1 text-xs text-brand-green">Coach: {gk.coach}</p>}
-              {gk.quote && <p className="mt-2 text-sm text-brand-gray">&ldquo;{gk.quote}&rdquo;</p>}
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {goalkeepers.map((gk) => (
+              <TestimonialCard key={gk.id} testimonial={gk} />
+            ))}
+          </div>
+          <p className="mt-10 text-sm text-brand-gray">
+            Coaches and parents have shared references too —{" "}
+            <Link href="/testimonials" className="font-semibold text-brand-green">
+              read all testimonials
+            </Link>
+            .
+          </p>
+        </>
       )}
     </Section>
   );

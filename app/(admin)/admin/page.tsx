@@ -39,7 +39,7 @@ export default async function AdminOverview() {
         <ul className="mt-3 space-y-2 text-sm">
           <Task href="/admin/videos/new">Upload a new training video</Task>
           <Task href="/admin/team">Update a coach&apos;s photo, bio, or CV</Task>
-          <Task href="/admin/testimonials">Add a goalkeeper or parent testimonial</Task>
+          <Task href="/admin/testimonials">Add a testimonial from a goalkeeper, coach, or parent</Task>
           <Task href="/admin/packages">Change membership prices</Task>
           <Task href="/admin/settings">Edit your operating hours or homepage text</Task>
           <Task href="/coach">Review uploaded clips and write feedback</Task>

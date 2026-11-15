@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Section, SectionHeading } from "@/components/section";
 import { PackageCards } from "@/components/package-cards";
 import { MediaImage } from "@/components/media-image";
+import { TestimonialCard } from "@/components/testimonial-card";
 import { IntroVideo } from "@/components/intro-video";
 import { HOW_IT_WORKS } from "@/content/site";
 import { CATEGORY_LABELS } from "@/lib/training-categories";
@@ -18,12 +19,11 @@ import {
 export default async function HomePage() {
   const supabase = await createClient();
 
-  const [siteText, team, videoTestimonials, writtenTestimonials, goalkeepers, scPrograms, hours] =
+  const [siteText, team, allTestimonials, goalkeepers, scPrograms, hours] =
     await Promise.all([
       getSiteText(),
       getTeamMembers(),
-      getTestimonials("video"),
-      getTestimonials("written"),
+      getTestimonials(),
       getGoalkeepers(),
       getSCPrograms(),
       getOperatingHours(),
@@ -37,7 +37,7 @@ export default async function HomePage() {
     .order("sort_order")
     .limit(3);
 
-  const featured = videoTestimonials.filter((t) => t.featured).slice(0, 3);
+  const featured = allTestimonials.filter((t) => t.featured).slice(0, 3);
   const corePrograms = scPrograms.filter((p) => p.category === "program");
   const extraPrograms = scPrograms.filter((p) => p.category !== "program");
 
@@ -279,65 +279,36 @@ export default async function HomePage() {
             title="Goalkeepers we have worked with"
             subtitle="Real goalkeepers, real levels, real development."
           />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {goalkeepers.map((gk) => (
-              <div key={gk.id} className="rounded-xl border border-gray-200 p-4">
-                <MediaImage
-                  path={gk.photo_path}
-                  alt={gk.name}
-                  className="mb-3 aspect-square w-full rounded-lg object-cover"
-                />
-                <p className="font-semibold">{gk.name}</p>
-                <p className="text-sm text-brand-gray">{gk.affiliation}</p>
-                <p className="text-sm text-brand-gray">{gk.level}</p>
-              </div>
+          <div className="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {goalkeepers.slice(0, 6).map((gk) => (
+              <TestimonialCard key={gk.id} testimonial={gk} showProfile={false} />
             ))}
           </div>
+          {goalkeepers.length > 6 && (
+            <Link href="/goalkeepers" className="mt-8 inline-block text-sm font-semibold text-brand-green">
+              See all {goalkeepers.length} goalkeepers &rarr;
+            </Link>
+          )}
         </Section>
       )}
 
-      {/* 11. Video Testimonials */}
+      {/* 11. Featured Testimonials */}
       {featured.length > 0 && (
         <Section dark>
           <SectionHeading
             dark
             eyebrow="Testimonials"
-            title="Hear it from our goalkeepers"
-            subtitle="Goalkeepers and parents on what training with KeeperHQ changed for them."
+            title="Hear it from goalkeepers and coaches"
+            subtitle="What the people who have worked with us say."
           />
-          <div className="grid gap-5 sm:grid-cols-3">
+          <div className="grid items-start gap-5 lg:grid-cols-3">
             {featured.map((t) => (
-              <div key={t.id} className="rounded-xl bg-white/5 p-5">
-                <div className="mb-3 aspect-video overflow-hidden rounded-lg bg-white/10">
-                  <MediaImage path={t.thumbnail_path} alt={t.name} className="h-full w-full object-cover" />
-                </div>
-                <p className="font-semibold">{t.name}</p>
-                <p className="text-sm text-gray-400">{t.affiliation}</p>
-                {t.quote && <p className="mt-2 text-sm text-gray-300">&ldquo;{t.quote}&rdquo;</p>}
-              </div>
+              <TestimonialCard key={t.id} testimonial={t} dark showProfile={false} />
             ))}
           </div>
           <Link href="/testimonials" className="mt-8 inline-block rounded-lg bg-brand-green px-6 py-3 text-sm font-semibold hover:bg-brand-green-dark">
-            VIEW ALL TESTIMONIALS
+            VIEW ALL {allTestimonials.length} TESTIMONIALS
           </Link>
-        </Section>
-      )}
-
-      {/* 12. Written Testimonials */}
-      {writtenTestimonials.length > 0 && (
-        <Section>
-          <SectionHeading title="In their own words" subtitle="Prefer to read? Here's what families tell us." />
-          <div className="grid gap-4 sm:grid-cols-2">
-            {writtenTestimonials.map((t) => (
-              <blockquote key={t.id} className="rounded-xl bg-brand-gray-light p-6">
-                <p className="text-sm text-brand-black">&ldquo;{t.quote}&rdquo;</p>
-                <footer className="mt-3 text-sm font-semibold">
-                  {t.name}
-                  {t.affiliation && <span className="font-normal text-brand-gray"> — {t.affiliation}</span>}
-                </footer>
-              </blockquote>
-            ))}
-          </div>
         </Section>
       )}
 

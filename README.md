@@ -43,9 +43,11 @@ This is your database. It holds your training videos, your members, and your web
    - **anon public** key
    - **service_role** key — *treat this one like a password, never share it*
 4. Now set up your database tables. In the left sidebar click **SQL Editor** → **New query**.
-5. Open the folder `supabase/migrations` in this project. You'll see five files numbered
-   `0001` to `0005`. **One at a time, in order**: open the file, copy all of its text, paste
+5. Open the folder `supabase/migrations` in this project. You'll see six files numbered
+   `0001` to `0006`. **One at a time, in order**: open the file, copy all of its text, paste
    it into the SQL Editor, and click **Run**. Wait for "Success" before moving to the next.
+
+   The last one loads your 34 real testimonials, so they'll be on your site straight away.
 
    > Order matters. If you get an error, you likely skipped one or ran them out of order.
 
@@ -216,15 +218,21 @@ Each coach's photo, bio, CV (as a PDF), languages, and booking link. The section
 Playing Career, Coaching Career and so on — are exactly what appears on their profile page.
 **Leave a section's text empty and it disappears** from the page.
 
-### Testimonials
+### Testimonials & Goalkeepers
 
-Video and written testimonials. Tick **Featured** on your best two or three videos to put
-them on the homepage; the rest appear on your Testimonials page.
+Your 34 testimonials are already loaded here, split into **Goalkeepers**, **Coaches**, and
+**Parents**. Each has a photo, a background/career list, and the quote exactly as it was
+submitted.
 
-### Goalkeepers Worked With
+Tick **Featured** on your best two or three to choose what shows on the homepage. Right now
+that's Enrique Bösl, Jack Hobday, and Dennis Hill — change it to whoever you prefer.
 
-The cards showing your track record. Only add a goalkeeper's photo, name, or quote if you
-have their permission — and a parent's permission if they're under 18.
+**Goalkeepers in this list also fill the "Goalkeepers We Have Worked With" section**, so you
+only ever enter a person once. A goalkeeper with no quote still appears as a track-record
+card.
+
+Only add someone's photo, name, or quote if you have their permission — and a parent's
+permission if they're under 18.
 
 ### Membership Prices & S&C Programs
 
@@ -311,11 +319,14 @@ See "Connecting your own domain" at the end of Part 3.
 
 ## Before you launch — checklist
 
-- [ ] All five migration files run in Supabase, in order
+- [ ] All six migration files run in Supabase, in order
 - [ ] Your admin account works at `/admin`
 - [ ] Real training videos uploaded, with up to 3 marked as free samples
 - [ ] Team photos, bios, and CVs added
-- [ ] Testimonials added (with permission from everyone featured)
+- [ ] Benjamin Flicker's quote added, and Iker's surname filled in (both were pending)
+- [ ] Permission confirmed for everyone shown in Testimonials
+- [ ] Photos added for Alexis Vizarelis, Jamie Peterson, Heather, Adam, and Mason's father
+      (Anthony H and Jennifer Jackson asked not to have photos)
 - [ ] Prices in the Website Manager match your prices in Stripe
 - [ ] Stripe tested with the test card, then switched to live mode
 - [ ] Cal.com usernames added so people can book calls

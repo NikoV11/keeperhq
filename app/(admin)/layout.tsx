@@ -10,8 +10,7 @@ const SECTIONS = [
       { href: "/admin", label: "Overview" },
       { href: "/admin/videos", label: "Training Videos" },
       { href: "/admin/team", label: "Team & Coaches" },
-      { href: "/admin/testimonials", label: "Testimonials" },
-      { href: "/admin/goalkeepers", label: "Goalkeepers Worked With" },
+      { href: "/admin/testimonials", label: "Testimonials & Goalkeepers" },
     ],
   },
   {
