@@ -38,7 +38,6 @@ export async function saveSettingsAction(formData: FormData) {
       key: "cal_usernames",
       value: {
         stefan: String(formData.get("cal_stefan") ?? "").trim(),
-        jack: String(formData.get("cal_jack") ?? "").trim(),
         paul: String(formData.get("cal_paul") ?? "").trim(),
       },
     },

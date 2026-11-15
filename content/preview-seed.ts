@@ -693,26 +693,6 @@ export const SEED_TEAM: TeamMember[] = [
   },
   {
     id: "seed-m-2",
-    slug: "jack",
-    name: "Jack",
-    role_title: "CEO | Goalkeeper Coach",
-    short_bio:
-      "Co-founder and CEO of KeeperHQ, bringing the goalkeeper-specific coaching philosophy behind the platform.",
-    photo_path: "/images/placeholder/team-jack.svg",
-    cv_path: null,
-    cal_username: null,
-    languages: ["English"],
-    sections: [
-      { heading: "About", body: "Full bio and surname pending." },
-      { heading: "Playing Career", body: PENDING },
-      { heading: "Coaching Career", body: PENDING },
-      { heading: "Education & Qualifications", body: PENDING },
-    ],
-    sort_order: 2,
-    published: true,
-  },
-  {
-    id: "seed-m-3",
     slug: "paul",
     name: "Paul Olla",
     role_title: "Strength & Conditioning | Train.Adapt.Peak",
@@ -727,7 +707,7 @@ export const SEED_TEAM: TeamMember[] = [
       { heading: "Certifications", body: PENDING },
       { heading: "S&C / Athletic Experience", body: PENDING },
     ],
-    sort_order: 3,
+    sort_order: 2,
     published: true,
   },
 ];

@@ -43,8 +43,8 @@ This is your database. It holds your training videos, your members, and your web
    - **anon public** key
    - **service_role** key — *treat this one like a password, never share it*
 4. Now set up your database tables. In the left sidebar click **SQL Editor** → **New query**.
-5. Open the folder `supabase/migrations` in this project. You'll see six files numbered
-   `0001` to `0006`. **One at a time, in order**: open the file, copy all of its text, paste
+5. Open the folder `supabase/migrations` in this project. You'll see seven files numbered
+   `0001` to `0007`. **One at a time, in order**: open the file, copy all of its text, paste
    it into the SQL Editor, and click **Run**. Wait for "Success" before moving to the next.
 
    The last one loads your 34 real testimonials, so they'll be on your site straight away.
@@ -176,7 +176,8 @@ the products and the webhook in live mode — test and live are completely separ
 
 ## Part 6 — Zoom call bookings with Cal.com
 
-1. Each coach signs up free at **[cal.com](https://cal.com)** and picks a username.
+1. Each coach (Stefan and Paul) signs up free at **[cal.com](https://cal.com)** and picks a
+   username.
 2. Set up the call types you offer — for example a 30-minute "Free Intro Call" and a
    30-minute "Evaluation Zoom". Connect Zoom in Cal.com's **Apps** section.
 3. In your Website Manager, go to **Site Text & Hours** → **Booking links** and type each
@@ -319,7 +320,7 @@ See "Connecting your own domain" at the end of Part 3.
 
 ## Before you launch — checklist
 
-- [ ] All six migration files run in Supabase, in order
+- [ ] All seven migration files run in Supabase, in order
 - [ ] Your admin account works at `/admin`
 - [ ] Real training videos uploaded, with up to 3 marked as free samples
 - [ ] Team photos, bios, and CVs added

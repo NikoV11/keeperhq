@@ -69,7 +69,7 @@ export default async function AdminSettingsPage() {
             accept="video/*"
             prefix="brand"
             currentPath={introVideo}
-            hint="The ~2 minute video with Stefan and Jack near the top of the homepage."
+            hint="The ~2 minute introduction video near the top of the homepage."
           />
         </Card>
 
@@ -95,12 +95,9 @@ export default async function AdminSettingsPage() {
             Your free Cal.com username for each coach. Booking calendars stay hidden until these
             are filled in.
           </p>
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Stefan">
               <input name="cal_stefan" defaultValue={cal.stefan ?? ""} className={inputClass} />
-            </Field>
-            <Field label="Jack">
-              <input name="cal_jack" defaultValue={cal.jack ?? ""} className={inputClass} />
             </Field>
             <Field label="Paul">
               <input name="cal_paul" defaultValue={cal.paul ?? ""} className={inputClass} />

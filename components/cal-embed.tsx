@@ -8,7 +8,7 @@ export async function CalEmbed({
   coach = "stefan",
   eventSlug,
 }: {
-  coach?: "stefan" | "jack" | "paul";
+  coach?: "stefan" | "paul";
   eventSlug?: string;
 }) {
   const usernames = await getCalUsernames();

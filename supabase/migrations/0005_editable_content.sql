@@ -192,20 +192,12 @@ insert into public.team_members (slug, name, role_title, short_bio, photo_path, 
    {"heading":"Qualifications & Certifications","body":"Qualifications pending."},
    {"heading":"Achievements","body":"Achievements pending."},
    {"heading":"References","body":"References pending approval."}]', 1),
-('jack', 'Jack', 'CEO | Goalkeeper Coach',
- 'Co-founder and CEO of KeeperHQ, bringing the goalkeeper-specific coaching philosophy behind the platform.',
- '/images/placeholder/team-jack.svg', '{English}',
- '[{"heading":"About","body":"Full bio and surname pending — to be supplied before launch."},
-   {"heading":"Playing Career","body":"Playing career details pending."},
-   {"heading":"Coaching Career","body":"Coaching career details pending."},
-   {"heading":"Education & Qualifications","body":"Education and qualifications pending."},
-   {"heading":"References","body":"References pending approval."}]', 2),
 ('paul', 'Paul Olla', 'Strength & Conditioning | Train.Adapt.Peak',
  'Strength and conditioning coach behind Train.Adapt.Peak (TAP), delivering goalkeeper-specific physical development for KeeperHQ.',
  '/images/placeholder/team-paul.svg', '{}',
  '[{"heading":"About","body":"Full bio pending — to be supplied before launch."},
    {"heading":"Certifications","body":"S&C certifications pending."},
-   {"heading":"S&C / Athletic Experience","body":"Experience details pending."}]', 3);
+   {"heading":"S&C / Athletic Experience","body":"Experience details pending."}]', 2);
 
 insert into public.testimonials (kind, name, affiliation, quote, thumbnail_path, featured, sort_order) values
 ('video', 'Goalkeeper name pending', 'Club / College pending', 'Testimonial quote pending approval.', '/images/placeholder/testimonial.svg', true, 1),
@@ -257,7 +249,7 @@ insert into public.app_config (key, value) values
   "contact_email": "info@keeperhq.com"
 }'),
 ('social_links', '[]'),
-('cal_usernames', '{"stefan": "", "jack": "", "paul": ""}')
+('cal_usernames', '{"stefan": "", "paul": ""}')
 on conflict (key) do nothing;
 
 update public.app_config
