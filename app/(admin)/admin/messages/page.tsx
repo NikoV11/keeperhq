@@ -47,28 +47,28 @@ export default async function AdminMessagesPage() {
       ) : (
         <div className="space-y-4">
           {messages.map((msg) => (
-            <Card key={msg.id} className={msg.status === "new" ? "ring-2 ring-brand-green" : ""}>
+            <Card key={msg.id} className={msg.status === "new" ? "ring-2 ring-gold" : ""}>
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-semibold text-brand-black">
+                  <p className="font-semibold text-ink">
                     {msg.name}{" "}
                     {msg.status === "new" && (
-                      <span className="ml-1 rounded bg-brand-green px-1.5 py-0.5 text-[10px] font-bold uppercase text-white">
+                      <span className="ml-1 rounded bg-gold px-1.5 py-0.5 text-[10px] font-bold uppercase text-ink">
                         New
                       </span>
                     )}
                   </p>
-                  <a href={`mailto:${msg.email}`} className="text-sm text-brand-green hover:underline">
+                  <a href={`mailto:${msg.email}`} className="text-sm text-gold-dark hover:underline">
                     {msg.email}
                   </a>
                 </div>
-                <p className="text-xs text-brand-gray">
+                <p className="text-xs text-ink-muted">
                   {new Date(msg.created_at).toLocaleString()} ·{" "}
                   {msg.source === "chat_widget" ? "Chat button" : "Contact page"}
                 </p>
               </div>
 
-              <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-brand-gray sm:grid-cols-4">
+              <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-ink-muted sm:grid-cols-4">
                 <Detail label="Interested in" value={INTEREST_LABELS[msg.interest ?? "general"]} />
                 <Detail label="GK age" value={msg.gk_age ? String(msg.gk_age) : null} />
                 <Detail label="Country" value={msg.country} />
@@ -76,14 +76,14 @@ export default async function AdminMessagesPage() {
                 <Detail label="Playing level" value={msg.playing_level} />
               </dl>
 
-              <p className="mt-3 whitespace-pre-wrap rounded-lg bg-brand-gray-light p-3 text-sm text-brand-black">
+              <p className="mt-3 whitespace-pre-wrap rounded-lg bg-paper-warm p-3 text-sm text-ink">
                 {msg.message}
               </p>
 
               <div className="mt-3 flex flex-wrap gap-2">
                 <a
                   href={`mailto:${msg.email}?subject=Re: Your KeeperHQ enquiry`}
-                  className="rounded-lg bg-brand-green px-4 py-2 text-xs font-semibold text-white hover:bg-brand-green-dark"
+                  className="rounded-lg bg-gold px-4 py-2 text-xs font-bold text-ink hover:bg-[#ffc23d]"
                 >
                   Reply by email
                 </a>
@@ -95,7 +95,7 @@ export default async function AdminMessagesPage() {
                       <input type="hidden" name="status" value={status} />
                       <button
                         type="submit"
-                        className="rounded-lg border border-gray-300 px-3 py-2 text-xs font-semibold text-brand-black hover:border-brand-green"
+                        className="rounded-lg border border-line px-3 py-2 text-xs font-semibold text-ink hover:border-gold"
                       >
                         Mark as {status}
                       </button>
@@ -115,7 +115,7 @@ function Detail({ label, value }: { label: string; value: string | null | undefi
   return (
     <div>
       <dt className="font-semibold uppercase tracking-wide text-[10px]">{label}</dt>
-      <dd className="text-brand-black">{value}</dd>
+      <dd className="text-ink">{value}</dd>
     </div>
   );
 }

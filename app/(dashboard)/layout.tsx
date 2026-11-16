@@ -36,8 +36,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const plan = await getUserPlan(user.id);
 
   return (
-    <div className="min-h-screen bg-brand-gray-light flex">
-      <aside className="w-64 shrink-0 bg-brand-black text-brand-white flex flex-col">
+    <div className="min-h-screen bg-paper-warm flex">
+      <aside className="w-64 shrink-0 bg-ink text-paper flex flex-col">
         <div className="px-6 py-6">
           <Logo size="sm" />
         </div>
@@ -46,7 +46,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <Link
               key={item.href}
               href={item.href}
-              className="block rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white"
+              className="block rounded-lg px-3 py-2 text-sm text-paper/70 hover:bg-white/10 hover:text-white"
             >
               {item.label}
             </Link>
@@ -54,7 +54,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           {profile?.role === "coach" || profile?.role === "admin" ? (
             <Link
               href="/coach"
-              className="block rounded-lg px-3 py-2 text-sm text-brand-green-light hover:bg-white/10"
+              className="block rounded-lg px-3 py-2 text-sm text-gold hover:bg-white/10"
             >
               Coach Console
             </Link>
@@ -62,9 +62,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
         </nav>
         <div className="px-6 py-4 border-t border-white/10">
           <p className="text-sm font-medium">{profile?.full_name ?? "Member"}</p>
-          <p className="text-xs uppercase tracking-wide text-brand-green-light">{plan} plan</p>
+          <p className="text-xs uppercase tracking-wide text-gold">{plan} plan</p>
           <form action={logoutAction} className="mt-3">
-            <button type="submit" className="text-xs text-gray-400 hover:text-white">
+            <button type="submit" className="text-xs text-paper/55 hover:text-white">
               Log out
             </button>
           </form>

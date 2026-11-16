@@ -32,10 +32,10 @@ export default async function AdminTestimonialsPage() {
         const items = all.filter((t) => t.category === group.category);
         return (
           <section key={group.category} className="mb-10">
-            <h2 className="font-semibold text-brand-black">
-              {group.label} <span className="text-brand-gray">({items.length})</span>
+            <h2 className="font-semibold text-ink">
+              {group.label} <span className="text-ink-muted">({items.length})</span>
             </h2>
-            <p className="mb-3 text-sm text-brand-gray">{group.note}</p>
+            <p className="mb-3 text-sm text-ink-muted">{group.note}</p>
 
             {items.length === 0 ? (
               <EmptyState>None yet.</EmptyState>
@@ -62,7 +62,7 @@ function TestimonialEditor({ testimonial: t }: { testimonial: Testimonial }) {
         <input type="hidden" name="id" value={t.id} />
 
         <div className="flex items-center justify-between gap-4">
-          <h3 className="font-bold text-brand-black">{t.name}</h3>
+          <h3 className="font-bold text-ink">{t.name}</h3>
           {!t.quote && (
             <span className="rounded bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800">
               Quote missing
@@ -106,7 +106,7 @@ function TestimonialEditor({ testimonial: t }: { testimonial: Testimonial }) {
         </Field>
 
         <details>
-          <summary className="cursor-pointer text-sm font-medium text-brand-green">
+          <summary className="cursor-pointer text-sm font-medium text-gold-dark">
             Original language version {t.quote_original ? "(set)" : "(optional)"}
           </summary>
           <div className="mt-3 grid gap-4 sm:grid-cols-[1fr_160px]">
@@ -151,27 +151,27 @@ function TestimonialEditor({ testimonial: t }: { testimonial: Testimonial }) {
 
         <div className="flex flex-wrap items-center gap-4">
           <SaveButton>Save</SaveButton>
-          <label className="flex items-center gap-2 text-sm text-brand-gray">
+          <label className="flex items-center gap-2 text-sm text-ink-muted">
             <input type="checkbox" name="featured" defaultChecked={t.featured} />
             Featured on homepage
           </label>
-          <label className="flex items-center gap-2 text-sm text-brand-gray">
+          <label className="flex items-center gap-2 text-sm text-ink-muted">
             <input type="checkbox" name="published" defaultChecked={t.published} />
             Show on website
           </label>
-          <label className="flex items-center gap-2 text-sm text-brand-gray">
+          <label className="flex items-center gap-2 text-sm text-ink-muted">
             Order
             <input
               name="sort_order"
               type="number"
               defaultValue={t.sort_order}
-              className="w-20 rounded-lg border border-gray-300 px-2 py-1 text-sm"
+              className="w-20 rounded-lg border border-line px-2 py-1 text-sm"
             />
           </label>
         </div>
       </form>
 
-      <form action={deleteTestimonialAction} className="mt-3 border-t border-gray-100 pt-3">
+      <form action={deleteTestimonialAction} className="mt-3 border-t border-line/60 pt-3">
         <input type="hidden" name="id" value={t.id} />
         <DangerButton>Delete {t.name}</DangerButton>
       </form>
@@ -183,7 +183,7 @@ function AddForm({ category, label }: { category: TestimonialCategory; label: st
   return (
     <form
       action={saveTestimonialAction}
-      className="mt-4 flex flex-wrap items-end gap-3 rounded-xl border border-dashed border-gray-300 p-4"
+      className="mt-4 flex flex-wrap items-end gap-3 rounded-xl border border-dashed border-line p-4"
     >
       <input type="hidden" name="category" value={category} />
       <input type="hidden" name="kind" value="written" />

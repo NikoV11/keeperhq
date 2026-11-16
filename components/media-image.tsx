@@ -21,7 +21,7 @@ export function MediaImage({
   if (!src) {
     return (
       <div
-        className={`flex items-center justify-center bg-brand-gray-light text-xs text-brand-gray ${className}`}
+        className={`flex items-center justify-center bg-paper-warm text-xs text-ink-muted ${className}`}
         role="img"
         aria-label={`${alt} — no image yet`}
       >

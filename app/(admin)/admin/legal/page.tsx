@@ -25,8 +25,8 @@ export default async function AdminLegalPage() {
               <input type="hidden" name="slug" value={doc.slug} />
 
               <div className="flex items-center justify-between">
-                <h2 className="font-bold text-brand-black">{doc.title}</h2>
-                <span className="text-xs text-brand-gray">/legal/{doc.slug}</span>
+                <h2 className="font-bold text-ink">{doc.title}</h2>
+                <span className="text-xs text-ink-muted">/legal/{doc.slug}</span>
               </div>
 
               <Field label="Page title">

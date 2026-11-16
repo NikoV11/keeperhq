@@ -5,7 +5,7 @@ export const metadata = { title: "Log In | KeeperHQ" };
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<p className="text-sm text-brand-gray">Loading...</p>}>
+    <Suspense fallback={<p className="text-sm text-ink-muted">Loading...</p>}>
       <LoginForm />
     </Suspense>
   );

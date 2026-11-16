@@ -37,35 +37,35 @@ export default async function TrainingLibraryPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-brand-black">Training Library</h1>
-        <p className="text-brand-gray">Every technical category in one place.</p>
+        <h1 className="text-2xl font-bold text-ink">Training Library</h1>
+        <p className="text-ink-muted">Every technical category in one place.</p>
       </div>
 
       {byCategory.size === 0 && (
-        <p className="text-sm text-brand-gray">
+        <p className="text-sm text-ink-muted">
           No videos published yet — check back soon, or contact your coach.
         </p>
       )}
 
       {Array.from(byCategory.entries()).map(([category, items]) => (
         <section key={category}>
-          <h2 className="mb-3 font-semibold text-brand-black">
+          <h2 className="mb-3 font-semibold text-ink">
             {CATEGORY_LABELS[category] ?? category}
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {items!.map((video) => (
-              <div key={video.id} className="rounded-xl bg-white p-4 shadow-sm">
-                <p className="font-medium text-brand-black">{video.title}</p>
+              <div key={video.id} className="rounded-[0.875rem] bg-paper p-4 shadow-sm">
+                <p className="font-medium text-ink">{video.title}</p>
                 {video.description && (
-                  <p className="mt-1 text-sm text-brand-gray">{video.description}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{video.description}</p>
                 )}
                 <div className="mt-3 flex items-center justify-between">
-                  <span className="text-xs uppercase text-brand-gray">{video.sub_type ?? "—"}</span>
+                  <span className="text-xs uppercase text-ink-muted">{video.sub_type ?? "—"}</span>
                   <form action={toggleFavoriteAction}>
                     <input type="hidden" name="video_id" value={video.id} />
                     <button
                       type="submit"
-                      className="text-xs font-medium text-brand-green hover:text-brand-green-dark"
+                      className="text-xs font-medium text-gold-dark hover:text-gold-dark"
                     >
                       {favoriteIds.has(video.id) ? "★ Favorited" : "☆ Favorite"}
                     </button>

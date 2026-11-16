@@ -26,7 +26,7 @@ export default async function AdminPackagesPage() {
           <Card key={pkg.key}>
             <form action={savePackageAction} className="space-y-4">
               <input type="hidden" name="key" value={pkg.key} />
-              <h2 className="text-lg font-bold text-brand-black">{pkg.name}</h2>
+              <h2 className="text-lg font-bold text-ink">{pkg.name}</h2>
 
               <div className="grid gap-4 sm:grid-cols-3">
                 <Field label="Display name">
@@ -64,7 +64,7 @@ export default async function AdminPackagesPage() {
 
               <div className="flex items-center gap-4">
                 <SaveButton>Save {pkg.name}</SaveButton>
-                <label className="flex items-center gap-2 text-sm text-brand-gray">
+                <label className="flex items-center gap-2 text-sm text-ink-muted">
                   <input type="checkbox" name="featured" defaultChecked={pkg.featured} />
                   Highlight as &ldquo;Most Popular&rdquo;
                 </label>

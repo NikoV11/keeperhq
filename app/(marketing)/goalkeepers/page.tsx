@@ -16,7 +16,7 @@ export default async function GoalkeepersPage() {
         subtitle="From Olympic and World Cup squads to academy professionals, college starters, and high-school keepers."
       />
       {goalkeepers.length === 0 ? (
-        <p className="text-sm text-brand-gray">Coming soon.</p>
+        <p className="text-sm text-ink-muted">Coming soon.</p>
       ) : (
         <>
           <div className="grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -24,9 +24,9 @@ export default async function GoalkeepersPage() {
               <TestimonialCard key={gk.id} testimonial={gk} />
             ))}
           </div>
-          <p className="mt-10 text-sm text-brand-gray">
+          <p className="mt-10 text-sm text-ink-muted">
             Coaches and parents have shared references too —{" "}
-            <Link href="/testimonials" className="font-semibold text-brand-green">
+            <Link href="/testimonials" className="font-semibold text-gold-dark">
               read all testimonials
             </Link>
             .

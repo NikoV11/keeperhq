@@ -31,7 +31,7 @@ export function VideoForm({ video }: { video?: ExistingVideo }) {
       <input type="hidden" name="thumbnail_path" value={thumbnailPath} />
 
       <Card className="space-y-4">
-        <h2 className="font-semibold text-brand-black">1. The video file</h2>
+        <h2 className="font-semibold text-ink">1. The video file</h2>
         <FileUploader
           label="Video"
           accept="video/*"
@@ -51,7 +51,7 @@ export function VideoForm({ video }: { video?: ExistingVideo }) {
       </Card>
 
       <Card className="space-y-4">
-        <h2 className="font-semibold text-brand-black">2. Details</h2>
+        <h2 className="font-semibold text-ink">2. Details</h2>
 
         <Field label="Title">
           <input name="title" required defaultValue={video?.title ?? ""} className={inputClass} />
@@ -123,7 +123,7 @@ export function VideoForm({ video }: { video?: ExistingVideo }) {
 
       <div className="flex items-center gap-3">
         <SaveButton>{video ? "Save Changes" : "Add Video"}</SaveButton>
-        <Link href="/admin/videos" className="text-sm font-medium text-brand-gray hover:text-brand-black">
+        <Link href="/admin/videos" className="text-sm font-medium text-ink-muted hover:text-ink">
           Cancel
         </Link>
         {!videoPath && (
@@ -181,10 +181,10 @@ function FileUploader({
     <Field label={label} hint={hint}>
       <input type="file" accept={accept} onChange={handleChange} className="block w-full text-sm" />
       {status === "uploading" && (
-        <p className="mt-1 text-sm text-brand-gray">Uploading, please wait...</p>
+        <p className="mt-1 text-sm text-ink-muted">Uploading, please wait...</p>
       )}
       {status === "done" && currentPath && (
-        <p className="mt-1 text-sm text-brand-green">✓ Uploaded: {currentPath.split("/").pop()}</p>
+        <p className="mt-1 text-sm text-gold-dark">✓ Uploaded: {currentPath.split("/").pop()}</p>
       )}
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </Field>

@@ -10,8 +10,8 @@ export function TeamMemberForm({ member }: { member: TeamMember }) {
         <input type="hidden" name="id" value={member.id} />
 
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-brand-black">{member.name}</h2>
-          <span className="text-xs text-brand-gray">/about/{member.slug}</span>
+          <h2 className="text-lg font-bold text-ink">{member.name}</h2>
+          <span className="text-xs text-ink-muted">/about/{member.slug}</span>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
@@ -74,8 +74,8 @@ export function TeamMemberForm({ member }: { member: TeamMember }) {
           </Field>
         </div>
 
-        <fieldset className="rounded-lg bg-brand-gray-light p-4">
-          <legend className="px-1 text-sm font-semibold text-brand-black">
+        <fieldset className="rounded-lg bg-paper-warm p-4">
+          <legend className="px-1 text-sm font-semibold text-ink">
             Profile page sections
           </legend>
           <div className="space-y-3">
@@ -100,7 +100,7 @@ export function TeamMemberForm({ member }: { member: TeamMember }) {
 
         <div className="flex items-center gap-4">
           <SaveButton>Save {member.name.split(" ")[0]}</SaveButton>
-          <label className="flex items-center gap-2 text-sm text-brand-gray">
+          <label className="flex items-center gap-2 text-sm text-ink-muted">
             <input type="checkbox" name="published" defaultChecked={member.published} />
             Show on website
           </label>

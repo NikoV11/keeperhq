@@ -33,29 +33,29 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
                 href={cvUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-lg bg-brand-green px-4 py-2 text-center text-sm font-semibold text-white hover:bg-brand-green-dark"
+                className="block rounded-full bg-gold px-4 py-2 text-center text-sm font-semibold text-white hover:bg-[#ffc23d]"
               >
                 View / Download CV
               </a>
             ) : (
-              <p className="rounded-lg bg-brand-gray-light px-4 py-2 text-center text-sm text-brand-gray">
+              <p className="rounded-lg bg-paper-warm px-4 py-2 text-center text-sm text-ink-muted">
                 CV coming soon
               </p>
             )}
-            <Link href="/#intro" className="block text-center text-sm font-medium text-brand-green">
+            <Link href="/#intro" className="block text-center text-sm font-medium text-gold-dark">
               Watch the KeeperHQ intro video
             </Link>
           </div>
         </div>
 
         <div>
-          <h1 className="text-3xl font-bold text-brand-black">{member.name}</h1>
-          <p className="mt-1 font-medium text-brand-green">{member.role_title}</p>
-          {member.short_bio && <p className="mt-4 text-brand-gray">{member.short_bio}</p>}
+          <h1 className="text-3xl font-bold text-ink">{member.name}</h1>
+          <p className="mt-1 font-medium text-gold-dark">{member.role_title}</p>
+          {member.short_bio && <p className="mt-4 text-ink-muted">{member.short_bio}</p>}
 
           {member.languages.length > 0 && (
-            <p className="mt-4 text-sm text-brand-gray">
-              <span className="font-semibold text-brand-black">Languages:</span>{" "}
+            <p className="mt-4 text-sm text-ink-muted">
+              <span className="font-semibold text-ink">Languages:</span>{" "}
               {member.languages.join(", ")}
             </p>
           )}
@@ -65,13 +65,13 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
               .filter((section) => section.body)
               .map((section) => (
                 <div key={section.heading}>
-                  <h2 className="font-semibold text-brand-black">{section.heading}</h2>
-                  <p className="mt-1 whitespace-pre-wrap text-sm text-brand-gray">{section.body}</p>
+                  <h2 className="font-semibold text-ink">{section.heading}</h2>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-ink-muted">{section.body}</p>
                 </div>
               ))}
           </div>
 
-          <Link href="/about" className="mt-10 inline-block text-sm font-semibold text-brand-green">
+          <Link href="/about" className="mt-10 inline-block text-sm font-semibold text-gold-dark">
             &larr; Back to the team
           </Link>
         </div>

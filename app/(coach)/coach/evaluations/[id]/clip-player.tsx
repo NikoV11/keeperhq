@@ -6,7 +6,7 @@ export async function ClipPlayer({ storagePath }: { storagePath: string }) {
 
   if (!data?.signedUrl) {
     return (
-      <p className="mt-3 text-sm text-brand-gray">
+      <p className="mt-3 text-sm text-ink-muted">
         Couldn&apos;t load this clip. It may still be uploading.
       </p>
     );

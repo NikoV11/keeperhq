@@ -32,27 +32,27 @@ export default async function CoachQueuePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-brand-black">Evaluation Queue</h1>
-        <p className="text-brand-gray">Members with clips waiting to be reviewed.</p>
+        <h1 className="text-2xl font-bold text-ink">Evaluation Queue</h1>
+        <p className="text-ink-muted">Members with clips waiting to be reviewed.</p>
       </div>
 
       <section>
-        <h2 className="mb-3 font-semibold text-brand-black">
+        <h2 className="mb-3 font-semibold text-ink">
           Awaiting an evaluation ({byMember.size})
         </h2>
         {byMember.size === 0 ? (
-          <p className="text-sm text-brand-gray">No unassigned clips right now.</p>
+          <p className="text-sm text-ink-muted">No unassigned clips right now.</p>
         ) : (
           <div className="space-y-3">
             {Array.from(byMember.entries()).map(([userId, entry]) => (
-              <div key={userId} className="rounded-xl bg-white p-5 shadow-sm">
+              <div key={userId} className="rounded-[0.875rem] border border-line bg-paper p-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="font-medium text-brand-black">{entry.name}</p>
-                    <p className="text-sm text-brand-gray">
+                    <p className="font-medium text-ink">{entry.name}</p>
+                    <p className="text-sm text-ink-muted">
                       {entry.clips.length} clip{entry.clips.length === 1 ? "" : "s"} uploaded
                     </p>
-                    <ul className="mt-2 space-y-1 text-sm text-brand-gray">
+                    <ul className="mt-2 space-y-1 text-sm text-ink-muted">
                       {entry.clips.map((clip) => (
                         <li key={clip.id}>
                           {clip.original_filename}
@@ -63,7 +63,7 @@ export default async function CoachQueuePage() {
                   </div>
                   <form action={openEvaluationAction}>
                     <input type="hidden" name="user_id" value={userId} />
-                    <button type="submit" className="rounded-lg bg-brand-green px-4 py-2 text-sm font-semibold text-white hover:bg-brand-green-dark">
+                    <button type="submit" className="rounded-lg bg-gold px-4 py-2 text-sm font-bold text-ink hover:bg-[#ffc23d]">
                       Open Evaluation
                     </button>
                   </form>
@@ -75,11 +75,11 @@ export default async function CoachQueuePage() {
       </section>
 
       <section>
-        <h2 className="mb-3 font-semibold text-brand-black">
+        <h2 className="mb-3 font-semibold text-ink">
           In progress ({openEvaluations?.length ?? 0})
         </h2>
         {!openEvaluations || openEvaluations.length === 0 ? (
-          <p className="text-sm text-brand-gray">Nothing in progress.</p>
+          <p className="text-sm text-ink-muted">Nothing in progress.</p>
         ) : (
           <div className="space-y-3">
             {openEvaluations.map((item) => {
@@ -88,18 +88,18 @@ export default async function CoachQueuePage() {
                 <Link
                   key={item.id}
                   href={`/coach/evaluations/${item.id}`}
-                  className="block rounded-xl bg-white p-5 shadow-sm hover:ring-2 hover:ring-brand-green"
+                  className="block rounded-[0.875rem] border border-line bg-paper p-5 hover:ring-2 hover:ring-gold"
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-brand-black">
+                      <p className="font-medium text-ink">
                         {profile?.full_name ?? profile?.email ?? "Member"}
                       </p>
-                      <p className="text-sm text-brand-gray">
+                      <p className="text-sm text-ink-muted">
                         {item.cycle_start} &ndash; {item.cycle_end}
                       </p>
                     </div>
-                    <span className="rounded-full bg-brand-gray-light px-3 py-1 text-xs font-medium capitalize">
+                    <span className="rounded-full bg-paper-warm px-3 py-1 text-xs font-medium capitalize">
                       {item.status.replace("_", " ")}
                     </span>
                   </div>

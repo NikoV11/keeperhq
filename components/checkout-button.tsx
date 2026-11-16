@@ -7,12 +7,14 @@ export function CheckoutButton({
   productType,
   productKey,
   referralCode,
+  variant = "primary",
   className = "",
   children,
 }: {
   productType: ProductType;
   productKey: string;
   referralCode?: string;
+  variant?: "primary" | "outline";
   className?: string;
   children: React.ReactNode;
 }) {
@@ -46,7 +48,11 @@ export function CheckoutButton({
       <button
         onClick={handleClick}
         disabled={loading}
-        className={`inline-block rounded-lg bg-brand-green px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-green-dark disabled:opacity-60 ${className}`}
+        className={`inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-bold transition-all active:scale-[0.97] disabled:opacity-60 ${
+          variant === "primary"
+            ? "bg-gold text-ink hover:-translate-y-0.5 hover:bg-[#ffc23d] shadow-[var(--shadow-gold)]"
+            : "border border-ink/15 text-ink hover:-translate-y-0.5 hover:border-gold hover:bg-gold-soft"
+        } ${className}`}
       >
         {loading ? "Redirecting..." : children}
       </button>

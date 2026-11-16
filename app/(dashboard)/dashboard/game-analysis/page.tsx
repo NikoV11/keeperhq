@@ -15,16 +15,16 @@ export default async function GameAnalysisPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-brand-black">Game Video Analysis</h1>
-        <p className="text-brand-gray">
+        <h1 className="text-2xl font-bold text-ink">Game Video Analysis</h1>
+        <p className="text-ink-muted">
           A full breakdown of your game: positioning, decision-making, crosses, distribution,
           and key match situations — reviewed 1-on-1 with a coach on Zoom.
         </p>
       </div>
 
-      <div className="rounded-xl bg-white p-6 shadow-sm">
-        <p className="text-lg font-bold text-brand-black">$39.99 — One-Time Purchase</p>
-        <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-brand-gray">
+      <div className="rounded-[0.875rem] border border-line bg-paper p-6">
+        <p className="text-lg font-bold text-ink">$39.99 — One-Time Purchase</p>
+        <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-ink-muted">
           <li>Purchase the analysis</li>
           <li>Schedule the Zoom session</li>
           <li>Upload the complete game or provide a full-game link</li>
@@ -37,14 +37,14 @@ export default async function GameAnalysisPage() {
         </CheckoutButton>
       </div>
 
-      <div className="rounded-xl bg-white p-5 shadow-sm">
-        <h2 className="font-semibold text-brand-black mb-3">Order history</h2>
+      <div className="rounded-[0.875rem] border border-line bg-paper p-5">
+        <h2 className="font-semibold text-ink mb-3">Order history</h2>
         {!orders || orders.length === 0 ? (
-          <p className="text-sm text-brand-gray">No orders yet.</p>
+          <p className="text-sm text-ink-muted">No orders yet.</p>
         ) : (
           <ul className="space-y-2 text-sm">
             {orders.map((order) => (
-              <li key={order.id} className="flex justify-between text-brand-black">
+              <li key={order.id} className="flex justify-between text-ink">
                 <span>{new Date(order.created_at).toLocaleDateString()}</span>
                 <span className="capitalize">{order.status}</span>
                 <span>${(order.amount_cents / 100).toFixed(2)}</span>

@@ -39,7 +39,7 @@ export function Logo({
       />
       <span className="leading-none">
         <span className={`block font-bold tracking-wide ${text}`}>
-          KEEPER<span className="text-brand-green-light">HQ</span>
+          KEEPER<span className="text-gold">HQ</span>
         </span>
         {showTagline && (
           <span className="mt-1 block text-[10px] font-medium uppercase tracking-[0.15em] opacity-70">

@@ -57,9 +57,9 @@ export function FileUploadField({
     <Field label={label} hint={hint}>
       <input type="hidden" name={name} value={path} />
       <input type="file" accept={accept} onChange={handleChange} className="block w-full text-sm" />
-      {uploading && <p className="mt-1 text-sm text-brand-gray">Uploading...</p>}
+      {uploading && <p className="mt-1 text-sm text-ink-muted">Uploading...</p>}
       {!uploading && path && (
-        <p className="mt-1 truncate text-sm text-brand-green">✓ {path.split("/").pop()}</p>
+        <p className="mt-1 truncate text-sm text-gold-dark">✓ {path.split("/").pop()}</p>
       )}
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </Field>

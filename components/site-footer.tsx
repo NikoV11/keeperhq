@@ -11,11 +11,11 @@ export async function SiteFooter() {
   ]);
 
   return (
-    <footer className="bg-brand-black text-gray-300">
+    <footer className="bg-ink text-paper/70">
       <div className="mx-auto max-w-7xl px-4 py-12">
         <div className="grid gap-8 md:grid-cols-4">
           <div>
-            <Logo size="md" className="text-brand-white" />
+            <Logo size="md" className="text-paper" />
             <p className="mt-2 text-sm">{siteText.tagline}</p>
             {siteText.contact_email && (
               <a
@@ -43,7 +43,7 @@ export async function SiteFooter() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-brand-white">Explore</p>
+            <p className="text-sm font-semibold text-paper">Explore</p>
             <ul className="mt-3 space-y-2">
               {FOOTER_LINKS.map((link) => (
                 <li key={link.href}>
@@ -54,7 +54,7 @@ export async function SiteFooter() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-brand-white">Legal</p>
+            <p className="text-sm font-semibold text-paper">Legal</p>
             <ul className="mt-3 space-y-2">
               {LEGAL_LINKS.map((link) => (
                 <li key={link.href}>
@@ -65,16 +65,16 @@ export async function SiteFooter() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-brand-white">Operating Hours</p>
+            <p className="text-sm font-semibold text-paper">Operating Hours</p>
             <p className="mt-3 text-sm">
               {hours.summary}
               {hours.timezone && <span> ({hours.timezone})</span>}
             </p>
-            <p className="mt-2 text-sm text-gray-400">{hours.note}</p>
+            <p className="mt-2 text-sm text-paper/55">{hours.note}</p>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-gray-500">
+        <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-paper/45">
           &copy; {new Date().getFullYear()} KeeperHQ. {siteText.tagline}
         </div>
       </div>

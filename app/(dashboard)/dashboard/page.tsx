@@ -28,8 +28,8 @@ export default async function DashboardHome() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-brand-black">My Dashboard</h1>
-        <p className="text-brand-gray">Here&apos;s where your development stands.</p>
+        <h1 className="text-2xl font-bold text-ink">My Dashboard</h1>
+        <p className="text-ink-muted">Here&apos;s where your development stands.</p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -39,30 +39,30 @@ export default async function DashboardHome() {
       </div>
 
       {plan === "none" && (
-        <div className="rounded-xl bg-brand-black p-6 text-brand-white">
+        <div className="rounded-xl bg-ink p-6 text-paper">
           <p className="font-semibold">You don&apos;t have an active membership yet.</p>
-          <p className="mt-1 text-sm text-gray-300">
+          <p className="mt-1 text-sm text-paper/70">
             Choose Bronze, Silver, or Gold to unlock the full training library and coach feedback.
           </p>
           <Link
             href="/packages"
-            className="mt-4 inline-block rounded-lg bg-brand-green px-4 py-2 text-sm font-semibold hover:bg-brand-green-dark"
+            className="mt-4 inline-block rounded-lg bg-gold px-4 py-2 text-sm font-semibold hover:bg-[#ffc23d]"
           >
             View Packages
           </Link>
         </div>
       )}
 
-      <div className="rounded-xl bg-white p-6 shadow-sm">
-        <h2 className="font-semibold text-brand-black mb-2">Latest Evaluation</h2>
+      <div className="rounded-[0.875rem] border border-line bg-paper p-6">
+        <h2 className="font-semibold text-ink mb-2">Latest Evaluation</h2>
         {latestEvaluation ? (
-          <p className="text-sm text-brand-gray">
+          <p className="text-sm text-ink-muted">
             Status: <span className="font-medium capitalize">{latestEvaluation.status}</span>
           </p>
         ) : (
-          <p className="text-sm text-brand-gray">No evaluations yet.</p>
+          <p className="text-sm text-ink-muted">No evaluations yet.</p>
         )}
-        <Link href="/dashboard/evaluations" className="mt-3 inline-block text-sm font-medium text-brand-green">
+        <Link href="/dashboard/evaluations" className="mt-3 inline-block text-sm font-medium text-gold-dark">
           View My Evaluations &rarr;
         </Link>
       </div>
@@ -72,9 +72,9 @@ export default async function DashboardHome() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl bg-white p-5 shadow-sm">
-      <p className="text-xs uppercase tracking-wide text-brand-gray">{label}</p>
-      <p className="mt-1 text-xl font-bold text-brand-black capitalize">{value}</p>
+    <div className="rounded-[0.875rem] border border-line bg-paper p-5">
+      <p className="text-xs uppercase tracking-wide text-ink-muted">{label}</p>
+      <p className="mt-1 text-xl font-bold text-ink capitalize">{value}</p>
     </div>
   );
 }

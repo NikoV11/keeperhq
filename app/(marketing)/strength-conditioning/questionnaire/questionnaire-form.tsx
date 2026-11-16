@@ -60,27 +60,27 @@ export function QuestionnaireForm() {
 
   if (result) {
     return (
-      <div className="max-w-xl rounded-2xl border border-brand-green p-8">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand-green">
+      <div className="max-w-xl rounded-2xl border border-gold p-8">
+        <p className="text-xs font-semibold uppercase tracking-wide text-gold-dark">
           Your recommended program
         </p>
-        <h2 className="mt-2 text-2xl font-bold text-brand-black">
+        <h2 className="mt-2 text-2xl font-bold text-ink">
           {SC_RECOMMENDATION_LABELS[result]}
         </h2>
-        <p className="mt-3 text-sm text-brand-gray">
+        <p className="mt-3 text-sm text-ink-muted">
           Based on your level, available equipment, and weekly training days. You can start with
           this program, or upgrade to a fully personalized plan built around your athlete intake.
         </p>
-        {saveNote && <p className="mt-3 text-sm text-brand-green">{saveNote}</p>}
+        {saveNote && <p className="mt-3 text-sm text-gold-dark">{saveNote}</p>}
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/dashboard/strength-conditioning" className="rounded-lg bg-brand-green px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-green-dark">
+          <Link href="/dashboard/strength-conditioning" className="rounded-full bg-gold px-5 py-2.5 text-sm font-bold text-ink hover:bg-[#ffc23d]">
             Purchase This Program
           </Link>
-          <Link href="/contact?interest=sc" className="rounded-lg border border-brand-green px-5 py-2.5 text-sm font-semibold text-brand-green hover:bg-brand-green hover:text-white">
+          <Link href="/contact?interest=sc" className="rounded-full border border-gold px-5 py-2.5 text-sm font-semibold text-gold-dark hover:bg-gold hover:text-ink">
             Upgrade to a Personalized Plan
           </Link>
         </div>
-        <button onClick={() => setResult(null)} className="mt-4 block text-sm text-brand-gray underline">
+        <button onClick={() => setResult(null)} className="mt-4 block text-sm text-ink-muted underline">
           Retake the questionnaire
         </button>
       </div>
@@ -90,7 +90,7 @@ export function QuestionnaireForm() {
   return (
     <form onSubmit={handleSubmit} className="max-w-xl space-y-6">
       <fieldset>
-        <legend className="font-semibold text-brand-black">What level do you play at?</legend>
+        <legend className="font-semibold text-ink">What level do you play at?</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {LEVELS.map((level) => (
             <button
@@ -99,8 +99,8 @@ export function QuestionnaireForm() {
               onClick={() => setGkLevel(level.value)}
               className={`rounded-lg border px-4 py-2 text-sm ${
                 gkLevel === level.value
-                  ? "border-brand-green bg-brand-green text-white"
-                  : "border-gray-300 text-brand-black hover:border-brand-green"
+                  ? "border-gold bg-gold text-ink"
+                  : "border-line text-ink hover:border-gold"
               }`}
             >
               {level.label}
@@ -110,7 +110,7 @@ export function QuestionnaireForm() {
       </fieldset>
 
       <fieldset>
-        <legend className="font-semibold text-brand-black">What equipment do you have?</legend>
+        <legend className="font-semibold text-ink">What equipment do you have?</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {EQUIPMENT.map((item) => (
             <button
@@ -119,8 +119,8 @@ export function QuestionnaireForm() {
               onClick={() => toggle(equipment, setEquipment, item.value)}
               className={`rounded-lg border px-4 py-2 text-sm ${
                 equipment.includes(item.value)
-                  ? "border-brand-green bg-brand-green text-white"
-                  : "border-gray-300 text-brand-black hover:border-brand-green"
+                  ? "border-gold bg-gold text-ink"
+                  : "border-line text-ink hover:border-gold"
               }`}
             >
               {item.label}
@@ -130,7 +130,7 @@ export function QuestionnaireForm() {
       </fieldset>
 
       <fieldset>
-        <legend className="font-semibold text-brand-black">Any injury history?</legend>
+        <legend className="font-semibold text-ink">Any injury history?</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {INJURY_FLAGS.map((flag) => (
             <button
@@ -139,22 +139,22 @@ export function QuestionnaireForm() {
               onClick={() => toggle(injuryFlags, setInjuryFlags, flag.value)}
               className={`rounded-lg border px-4 py-2 text-sm ${
                 injuryFlags.includes(flag.value)
-                  ? "border-brand-green bg-brand-green text-white"
-                  : "border-gray-300 text-brand-black hover:border-brand-green"
+                  ? "border-gold bg-gold text-ink"
+                  : "border-line text-ink hover:border-gold"
               }`}
             >
               {flag.label}
             </button>
           ))}
         </div>
-        <p className="mt-2 text-xs text-brand-gray">
+        <p className="mt-2 text-xs text-ink-muted">
           This is not medical advice — always clear training with a medical professional if
           you&apos;re currently injured.
         </p>
       </fieldset>
 
       <div>
-        <label className="font-semibold text-brand-black">
+        <label className="font-semibold text-ink">
           How many days per week can you train? ({weeklyTrainingDays})
         </label>
         <input
@@ -163,11 +163,11 @@ export function QuestionnaireForm() {
           max={7}
           value={weeklyTrainingDays}
           onChange={(e) => setWeeklyTrainingDays(Number(e.target.value))}
-          className="mt-2 w-full accent-brand-green"
+          className="mt-2 w-full accent-[color:var(--gold)]"
         />
       </div>
 
-      <button type="submit" className="rounded-lg bg-brand-green px-6 py-3 text-sm font-semibold text-white hover:bg-brand-green-dark">
+      <button type="submit" className="rounded-full bg-gold px-6 py-3 text-sm font-bold text-ink hover:bg-[#ffc23d]">
         Get My Recommendation
       </button>
     </form>

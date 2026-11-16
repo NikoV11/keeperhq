@@ -16,23 +16,27 @@ export function TestimonialCard({
   showProfile?: boolean;
 }) {
   const t = testimonial;
-  const muted = dark ? "text-gray-400" : "text-brand-gray";
-  const body = dark ? "text-gray-300" : "text-brand-gray";
+  const muted = dark ? "text-paper/50" : "text-ink-muted";
+  const body = dark ? "text-paper/75" : "text-ink-muted";
 
   return (
     <figure
-      className={`flex h-full flex-col rounded-xl p-5 ${
-        dark ? "bg-white/5" : "border border-gray-200 bg-white"
+      className={`kh-lift flex h-full flex-col rounded-[1.25rem] p-6 ${
+        dark
+          ? "border border-white/10 bg-white/[0.04] hover:border-gold/40"
+          : "border border-line bg-paper hover:border-gold/60"
       }`}
     >
       <div className="flex items-center gap-4">
         <MediaImage
           path={t.photo_path}
           alt={t.name}
-          className="h-16 w-16 shrink-0 rounded-full object-cover"
+          className={`h-16 w-16 shrink-0 rounded-full object-cover ring-2 ${
+            dark ? "ring-gold/30" : "ring-gold/40"
+          }`}
         />
         <figcaption>
-          <p className={`font-semibold ${dark ? "text-white" : "text-brand-black"}`}>
+          <p className={`font-bold ${dark ? "text-paper" : "text-ink"}`}>
             {t.name}
             {t.age ? <span className={`font-normal ${muted}`}>, {t.age}</span> : null}
           </p>
@@ -52,7 +56,7 @@ export function TestimonialCard({
 
       {t.quote_original && (
         <details className="mt-3">
-          <summary className={`cursor-pointer text-xs font-medium ${dark ? "text-brand-green-light" : "text-brand-green"}`}>
+          <summary className={`cursor-pointer text-xs font-bold ${dark ? "text-gold" : "text-gold-dark"}`}>
             Read the original {t.quote_original_language}
           </summary>
           <p className={`mt-2 whitespace-pre-wrap text-sm italic ${body}`}>{t.quote_original}</p>
@@ -61,10 +65,10 @@ export function TestimonialCard({
 
       {showProfile && t.profile.length > 1 && (
         <details className="mt-3">
-          <summary className={`cursor-pointer text-xs font-medium ${dark ? "text-brand-green-light" : "text-brand-green"}`}>
+          <summary className={`cursor-pointer text-xs font-bold ${dark ? "text-gold" : "text-gold-dark"}`}>
             Background &amp; career
           </summary>
-          <ul className={`mt-2 list-disc space-y-1 pl-5 text-sm ${body}`}>
+          <ul className={`mt-2 list-disc space-y-1.5 pl-5 text-sm ${body}`}>
             {t.profile.slice(1).map((line, i) => (
               <li key={i}>{line}</li>
             ))}

@@ -25,7 +25,7 @@ export default async function AdminVideosPage() {
         action={
           <Link
             href="/admin/videos/new"
-            className="shrink-0 rounded-lg bg-brand-green px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-green-dark"
+            className="shrink-0 rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#ffc23d]"
           >
             + Upload Video
           </Link>
@@ -40,7 +40,7 @@ export default async function AdminVideosPage() {
       {!videos || videos.length === 0 ? (
         <EmptyState>
           You haven&apos;t uploaded any training videos yet.{" "}
-          <Link href="/admin/videos/new" className="font-semibold text-brand-green">
+          <Link href="/admin/videos/new" className="font-semibold text-gold-dark">
             Upload your first one
           </Link>
           .
@@ -49,23 +49,23 @@ export default async function AdminVideosPage() {
         <div className="space-y-6">
           {Array.from(grouped.entries()).map(([category, items]) => (
             <Card key={category}>
-              <h2 className="mb-3 font-semibold text-brand-black">
+              <h2 className="mb-3 font-semibold text-ink">
                 {CATEGORY_LABELS[category] ?? category}
               </h2>
               <ul className="divide-y divide-gray-100">
                 {items.map((video) => (
                   <li key={video.id} className="flex items-center justify-between gap-4 py-3">
                     <div className="min-w-0">
-                      <p className="truncate font-medium text-brand-black">{video.title}</p>
-                      <p className="text-xs text-brand-gray">
+                      <p className="truncate font-medium text-ink">{video.title}</p>
+                      <p className="text-xs text-ink-muted">
                         {video.sub_type ?? "—"}
                         {video.is_free_trial && (
-                          <span className="ml-2 rounded bg-brand-green/10 px-1.5 py-0.5 font-semibold text-brand-green">
+                          <span className="ml-2 rounded bg-gold/10 px-1.5 py-0.5 font-semibold text-gold-dark">
                             Free sample
                           </span>
                         )}
                         {!video.published && (
-                          <span className="ml-2 rounded bg-gray-100 px-1.5 py-0.5 font-semibold text-brand-gray">
+                          <span className="ml-2 rounded bg-gray-100 px-1.5 py-0.5 font-semibold text-ink-muted">
                             Hidden
                           </span>
                         )}
@@ -74,7 +74,7 @@ export default async function AdminVideosPage() {
                     <div className="flex shrink-0 items-center gap-2">
                       <Link
                         href={`/admin/videos/${video.id}`}
-                        className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-brand-black hover:border-brand-green"
+                        className="rounded-lg border border-line px-3 py-1.5 text-xs font-semibold text-ink hover:border-gold"
                       >
                         Edit
                       </Link>
@@ -83,7 +83,7 @@ export default async function AdminVideosPage() {
                         <input type="hidden" name="published" value={String(!video.published)} />
                         <button
                           type="submit"
-                          className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-brand-black hover:border-brand-green"
+                          className="rounded-lg border border-line px-3 py-1.5 text-xs font-semibold text-ink hover:border-gold"
                         >
                           {video.published ? "Hide" : "Show"}
                         </button>

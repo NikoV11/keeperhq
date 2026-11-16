@@ -11,7 +11,7 @@ export default function ScheduleCallPage() {
         title="Want to meet us first?"
         subtitle="Schedule a free KeeperHQ Zoom call. Meet a coach, learn how KeeperHQ works, understand the memberships and services, ask questions, and discuss your goalkeeper-development goals."
       />
-      <div className="rounded-2xl border border-gray-200 p-2">
+      <div className="rounded-2xl border border-line p-2">
         <CalEmbed coach="stefan" />
       </div>
     </Section>

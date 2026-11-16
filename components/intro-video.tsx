@@ -7,8 +7,8 @@ export async function IntroVideo() {
 
   if (!src) {
     return (
-      <div className="aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-brand-gray-light">
-        <div className="flex h-full items-center justify-center text-sm text-brand-gray">
+      <div className="aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-paper-warm">
+        <div className="flex h-full items-center justify-center text-sm text-ink-muted">
           Introduction video coming soon.
         </div>
       </div>

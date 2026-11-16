@@ -19,16 +19,16 @@ export default async function CoachLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="min-h-screen bg-brand-gray-light">
-      <header className="bg-brand-black text-brand-white">
+    <div className="min-h-screen bg-paper-warm">
+      <header className="bg-ink text-paper">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
           <span className="flex items-center gap-2">
             <Logo size="sm" href="/coach" />
-            <span className="text-sm text-gray-400">Coach Console</span>
+            <span className="text-sm text-paper/55">Coach Console</span>
           </span>
           <div className="flex items-center gap-4 text-sm">
-            <span className="text-gray-400">{profile.full_name}</span>
-            <Link href="/dashboard" className="text-brand-green-light hover:text-white">
+            <span className="text-paper/55">{profile.full_name}</span>
+            <Link href="/dashboard" className="text-gold hover:text-white">
               Member view
             </Link>
           </div>

@@ -37,7 +37,7 @@ export default async function AdminReferralCodesPage() {
             <Card key={code.code}>
               <form action={saveReferralCodeAction} className="space-y-4">
                 <input type="hidden" name="code" value={code.code} />
-                <h2 className="font-mono font-bold text-brand-black">{code.code}</h2>
+                <h2 className="font-mono font-bold text-ink">{code.code}</h2>
 
                 <div className="grid gap-4 sm:grid-cols-3">
                   <Field label="Discount type">
@@ -71,14 +71,14 @@ export default async function AdminReferralCodesPage() {
 
                 <div className="flex items-center gap-4">
                   <SaveButton>Save</SaveButton>
-                  <label className="flex items-center gap-2 text-sm text-brand-gray">
+                  <label className="flex items-center gap-2 text-sm text-ink-muted">
                     <input type="checkbox" name="active" defaultChecked={code.active} />
                     Active
                   </label>
                 </div>
               </form>
 
-              <form action={deleteReferralCodeAction} className="mt-3 border-t border-gray-100 pt-3">
+              <form action={deleteReferralCodeAction} className="mt-3 border-t border-line/60 pt-3">
                 <input type="hidden" name="code" value={code.code} />
                 <DangerButton>Delete</DangerButton>
               </form>
@@ -89,7 +89,7 @@ export default async function AdminReferralCodesPage() {
 
       <form
         action={saveReferralCodeAction}
-        className="mt-6 flex flex-wrap items-end gap-3 rounded-xl border border-dashed border-gray-300 p-4"
+        className="mt-6 flex flex-wrap items-end gap-3 rounded-xl border border-dashed border-line p-4"
       >
         <div className="min-w-[160px]">
           <Field label="New code">

@@ -35,7 +35,7 @@ export default async function AdminOverview() {
       </div>
 
       <Card>
-        <h2 className="font-semibold text-brand-black">Common tasks</h2>
+        <h2 className="font-semibold text-ink">Common tasks</h2>
         <ul className="mt-3 space-y-2 text-sm">
           <Task href="/admin/videos/new">Upload a new training video</Task>
           <Task href="/admin/team">Update a coach&apos;s photo, bio, or CV</Task>
@@ -63,12 +63,12 @@ function Stat({
   return (
     <Link
       href={href}
-      className={`rounded-xl bg-white p-5 shadow-sm hover:ring-2 hover:ring-brand-green ${
-        highlight ? "ring-2 ring-brand-green" : ""
+      className={`rounded-[0.875rem] border border-line bg-paper p-5 hover:ring-2 hover:ring-gold ${
+        highlight ? "ring-2 ring-gold" : ""
       }`}
     >
-      <p className="text-xs uppercase tracking-wide text-brand-gray">{label}</p>
-      <p className="mt-1 text-2xl font-bold text-brand-black">{value}</p>
+      <p className="text-xs uppercase tracking-wide text-ink-muted">{label}</p>
+      <p className="mt-1 text-2xl font-bold text-ink">{value}</p>
     </Link>
   );
 }
@@ -76,7 +76,7 @@ function Stat({
 function Task({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <Link href={href} className="font-medium text-brand-green hover:text-brand-green-dark">
+      <Link href={href} className="font-medium text-gold-dark hover:text-gold-dark">
         {children} &rarr;
       </Link>
     </li>

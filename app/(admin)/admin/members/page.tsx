@@ -47,7 +47,7 @@ export default async function AdminMembersPage() {
       ) : (
         <Card className="overflow-x-auto p-0">
           <table className="w-full min-w-[640px] text-sm">
-            <thead className="border-b border-gray-200 bg-brand-gray-light text-left text-xs uppercase tracking-wide text-brand-gray">
+            <thead className="border-b border-line bg-paper-warm text-left text-xs uppercase tracking-wide text-ink-muted">
               <tr>
                 <th className="px-5 py-3">Name</th>
                 <th className="px-5 py-3">Email</th>
@@ -59,23 +59,23 @@ export default async function AdminMembersPage() {
             <tbody className="divide-y divide-gray-100">
               {members.map((member) => (
                 <tr key={member.id}>
-                  <td className="px-5 py-3 font-medium text-brand-black">
+                  <td className="px-5 py-3 font-medium text-ink">
                     {member.full_name ?? "—"}
                     {member.country && (
-                      <span className="block text-xs text-brand-gray">{member.country}</span>
+                      <span className="block text-xs text-ink-muted">{member.country}</span>
                     )}
                   </td>
                   <td className="px-5 py-3">
-                    <a href={`mailto:${member.email}`} className="text-brand-green hover:underline">
+                    <a href={`mailto:${member.email}`} className="text-gold-dark hover:underline">
                       {member.email}
                     </a>
                   </td>
                   <td className="px-5 py-3 capitalize">
                     {planByUser.get(member.id) ?? (
-                      <span className="text-brand-gray">No plan</span>
+                      <span className="text-ink-muted">No plan</span>
                     )}
                   </td>
-                  <td className="px-5 py-3 text-brand-gray">
+                  <td className="px-5 py-3 text-ink-muted">
                     {new Date(member.created_at).toLocaleDateString()}
                   </td>
                   <td className="px-5 py-3">
@@ -84,7 +84,7 @@ export default async function AdminMembersPage() {
                       <select
                         name="role"
                         defaultValue={member.role}
-                        className="rounded-lg border border-gray-300 px-2 py-1 text-xs"
+                        className="rounded-lg border border-line px-2 py-1 text-xs"
                         aria-label={`Role for ${member.full_name ?? member.email}`}
                       >
                         <option value="member">Member</option>
@@ -93,7 +93,7 @@ export default async function AdminMembersPage() {
                       </select>
                       <button
                         type="submit"
-                        className="rounded-lg border border-gray-300 px-2 py-1 text-xs font-semibold hover:border-brand-green"
+                        className="rounded-lg border border-line px-2 py-1 text-xs font-semibold hover:border-gold"
                       >
                         Set
                       </button>

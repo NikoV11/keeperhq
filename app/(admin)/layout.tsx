@@ -49,24 +49,24 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="flex min-h-screen bg-brand-gray-light">
-      <aside className="flex w-64 shrink-0 flex-col bg-brand-black text-brand-white">
+    <div className="flex min-h-screen bg-paper-warm">
+      <aside className="flex w-64 shrink-0 flex-col bg-ink text-paper">
         <div className="px-6 py-6">
           <Logo size="sm" href="/admin" />
-          <span className="mt-1 block text-xs text-gray-400">Website Manager</span>
+          <span className="mt-1 block text-xs text-paper/55">Website Manager</span>
         </div>
 
         <nav className="flex-1 overflow-y-auto px-3 pb-4">
           {SECTIONS.map((section) => (
             <div key={section.heading} className="mb-5">
-              <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-gray-500">
+              <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-paper/45">
                 {section.heading}
               </p>
               {section.items.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="block rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white"
+                  className="block rounded-lg px-3 py-2 text-sm text-paper/70 hover:bg-white/10 hover:text-white"
                 >
                   {item.label}
                 </Link>
@@ -78,14 +78,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="border-t border-white/10 px-6 py-4 text-sm">
           <p className="font-medium">{profile.full_name ?? "Admin"}</p>
           <div className="mt-2 flex flex-col gap-1 text-xs">
-            <Link href="/" className="text-brand-green-light hover:text-white">
+            <Link href="/" className="text-gold hover:text-white">
               View live website
             </Link>
-            <Link href="/coach" className="text-gray-400 hover:text-white">
+            <Link href="/coach" className="text-paper/55 hover:text-white">
               Coach console
             </Link>
             <form action={logoutAction}>
-              <button type="submit" className="text-gray-400 hover:text-white">Log out</button>
+              <button type="submit" className="text-paper/55 hover:text-white">Log out</button>
             </form>
           </div>
         </div>

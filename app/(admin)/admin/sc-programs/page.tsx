@@ -33,8 +33,8 @@ export default async function AdminSCProgramsPage() {
               <input type="hidden" name="key" value={program.key} />
 
               <div className="flex items-center justify-between">
-                <h2 className="font-bold text-brand-black">{program.title}</h2>
-                <span className="text-xs text-brand-gray">
+                <h2 className="font-bold text-ink">{program.title}</h2>
+                <span className="text-xs text-ink-muted">
                   {CATEGORY_LABELS[program.category] ?? program.category}
                 </span>
               </div>
@@ -63,7 +63,7 @@ export default async function AdminSCProgramsPage() {
 
               <div className="flex items-center gap-4">
                 <SaveButton>Save</SaveButton>
-                <label className="flex items-center gap-2 text-sm text-brand-gray">
+                <label className="flex items-center gap-2 text-sm text-ink-muted">
                   <input type="checkbox" name="published" defaultChecked={program.published} />
                   Show on website
                 </label>
@@ -71,7 +71,7 @@ export default async function AdminSCProgramsPage() {
                   name="sort_order"
                   type="number"
                   defaultValue={program.sort_order}
-                  className="w-20 rounded-lg border border-gray-300 px-2 py-1 text-sm"
+                  className="w-20 rounded-lg border border-line px-2 py-1 text-sm"
                   aria-label="Order"
                 />
               </div>

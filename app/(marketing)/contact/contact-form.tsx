@@ -14,7 +14,7 @@ const INTERESTS = [
 ];
 
 const inputClass =
-  "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-green focus:outline-none";
+  "w-full rounded-lg border border-line px-3 py-2 text-sm focus:border-gold focus:outline-none";
 
 export function ContactForm() {
   const searchParams = useSearchParams();
@@ -55,9 +55,9 @@ export function ContactForm() {
 
   if (sent) {
     return (
-      <div className="rounded-xl border border-brand-green p-8">
-        <p className="font-semibold text-brand-black">Thanks — your message is on its way.</p>
-        <p className="mt-1 text-sm text-brand-gray">
+      <div className="rounded-xl border border-gold p-8">
+        <p className="font-semibold text-ink">Thanks — your message is on its way.</p>
+        <p className="mt-1 text-sm text-ink-muted">
           A KeeperHQ coach will get back to you as soon as possible.
         </p>
       </div>
@@ -68,33 +68,33 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1 block text-sm font-medium text-brand-black">Name</label>
+          <label className="mb-1 block text-sm font-medium text-ink">Name</label>
           <input name="name" required className={inputClass} />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-brand-black">Email</label>
+          <label className="mb-1 block text-sm font-medium text-ink">Email</label>
           <input name="email" type="email" required className={inputClass} />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-brand-black">Goalkeeper age</label>
+          <label className="mb-1 block text-sm font-medium text-ink">Goalkeeper age</label>
           <input name="gk_age" type="number" min={4} max={80} className={inputClass} />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-brand-black">Country</label>
+          <label className="mb-1 block text-sm font-medium text-ink">Country</label>
           <input name="country" className={inputClass} />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-brand-black">Current club / school</label>
+          <label className="mb-1 block text-sm font-medium text-ink">Current club / school</label>
           <input name="club_school" className={inputClass} />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-brand-black">Playing level</label>
+          <label className="mb-1 block text-sm font-medium text-ink">Playing level</label>
           <input name="playing_level" className={inputClass} />
         </div>
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-brand-black">Service of interest</label>
+        <label className="mb-1 block text-sm font-medium text-ink">Service of interest</label>
         <select name="interest" defaultValue={presetInterest} className={inputClass}>
           {INTERESTS.map((item) => (
             <option key={item.value} value={item.value}>{item.label}</option>
@@ -103,7 +103,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-brand-black">Message</label>
+        <label className="mb-1 block text-sm font-medium text-ink">Message</label>
         <textarea name="message" rows={5} required className={inputClass} />
       </div>
 
@@ -112,7 +112,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="rounded-lg bg-brand-green px-6 py-3 text-sm font-semibold text-white hover:bg-brand-green-dark disabled:opacity-60"
+        className="rounded-full bg-gold px-6 py-3 text-sm font-bold text-ink hover:bg-[#ffc23d] disabled:opacity-60"
       >
         {pending ? "Sending..." : "Send Message"}
       </button>

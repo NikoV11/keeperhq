@@ -32,7 +32,7 @@ export default async function AdminSettingsPage() {
 
       <form action={saveSettingsAction} className="space-y-6">
         <Card className="space-y-4">
-          <h2 className="font-semibold text-brand-black">Homepage wording</h2>
+          <h2 className="font-semibold text-ink">Homepage wording</h2>
 
           <Field label="Tagline" hint="Appears under your logo and throughout the site.">
             <input name="tagline" defaultValue={siteText.tagline} className={inputClass} />
@@ -62,7 +62,7 @@ export default async function AdminSettingsPage() {
         </Card>
 
         <Card className="space-y-4">
-          <h2 className="font-semibold text-brand-black">Introduction video</h2>
+          <h2 className="font-semibold text-ink">Introduction video</h2>
           <FileUploadField
             name="intro_video_path"
             label="Homepage intro video"
@@ -74,7 +74,7 @@ export default async function AdminSettingsPage() {
         </Card>
 
         <Card className="space-y-4">
-          <h2 className="font-semibold text-brand-black">Operating hours</h2>
+          <h2 className="font-semibold text-ink">Operating hours</h2>
 
           <Field label="Hours summary" hint="For example: Monday–Friday, 9am–6pm.">
             <input name="hours_summary" defaultValue={hours.summary} className={inputClass} />
@@ -90,8 +90,8 @@ export default async function AdminSettingsPage() {
         </Card>
 
         <Card className="space-y-4">
-          <h2 className="font-semibold text-brand-black">Booking links (Cal.com)</h2>
-          <p className="text-sm text-brand-gray">
+          <h2 className="font-semibold text-ink">Booking links (Cal.com)</h2>
+          <p className="text-sm text-ink-muted">
             Your free Cal.com username for each coach. Booking calendars stay hidden until these
             are filled in.
           </p>
@@ -106,7 +106,7 @@ export default async function AdminSettingsPage() {
         </Card>
 
         <Card className="space-y-4">
-          <h2 className="font-semibold text-brand-black">Social media</h2>
+          <h2 className="font-semibold text-ink">Social media</h2>
           <Field
             label="Links"
             hint="One per line, as: Instagram | https://instagram.com/yourpage"

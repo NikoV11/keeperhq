@@ -18,10 +18,10 @@ export default async function LegalPage({ params }: { params: Promise<{ slug: st
   return (
     <Section>
       <div className="max-w-3xl">
-        <h1 className="text-3xl font-bold text-brand-black">{doc.title}</h1>
+        <h1 className="text-3xl font-bold text-ink">{doc.title}</h1>
         <div className="mt-6 space-y-4">
           {paragraphs.map((paragraph, i) => (
-            <p key={i} className="whitespace-pre-wrap text-brand-gray">
+            <p key={i} className="whitespace-pre-wrap text-ink-muted">
               {paragraph}
             </p>
           ))}
