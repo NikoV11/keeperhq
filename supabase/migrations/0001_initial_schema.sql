@@ -404,8 +404,8 @@ insert into public.app_config (key, value) values
   ('operating_hours', '{"note": "Final hours TBD", "timezone": "America/New_York"}'),
   ('intro_video_path', '"placeholder/intro-video.mp4"'),
   ('pricing', '{
-    "bronze_monthly": 12.99,
-    "silver_monthly": 44.99,
+    "bronze_monthly": 14.99,
+    "silver_monthly": 39.99,
     "gold_monthly": 59.99,
     "game_analysis": 39.99,
     "sc_explosive": 30,

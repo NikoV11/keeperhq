@@ -716,7 +716,7 @@ export const SEED_PACKAGES: MembershipPackage[] = [
   {
     key: "bronze",
     name: "Bronze",
-    price_display: "$12.99",
+    price_display: "$14.99",
     price_note: "/month",
     evaluation_note: "No individual evaluation",
     features: [
@@ -730,7 +730,7 @@ export const SEED_PACKAGES: MembershipPackage[] = [
   {
     key: "silver",
     name: "Silver",
-    price_display: "$44.99",
+    price_display: "$39.99",
     price_note: "/month",
     evaluation_note: "1 individual evaluation per month",
     features: [

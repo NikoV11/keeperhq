@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/logo";
 import { FOOTER_LINKS, LEGAL_LINKS } from "@/content/site";
 import { getSiteText, getOperatingHours, getSocialLinks } from "@/lib/content";
 
@@ -14,9 +15,7 @@ export async function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-12">
         <div className="grid gap-8 md:grid-cols-4">
           <div>
-            <p className="text-lg font-bold text-brand-white">
-              KEEPER<span className="text-brand-green-light">HQ</span>
-            </p>
+            <Logo size="md" className="text-brand-white" />
             <p className="mt-2 text-sm">{siteText.tagline}</p>
             {siteText.contact_email && (
               <a

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/logo";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getUserPlan } from "@/lib/subscriptions";
@@ -37,9 +38,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
   return (
     <div className="min-h-screen bg-brand-gray-light flex">
       <aside className="w-64 shrink-0 bg-brand-black text-brand-white flex flex-col">
-        <Link href="/" className="px-6 py-6 text-xl font-bold tracking-wide">
-          KEEPER<span className="text-brand-green-light">HQ</span>
-        </Link>
+        <div className="px-6 py-6">
+          <Logo size="sm" />
+        </div>
         <nav className="flex-1 overflow-y-auto px-3 space-y-1">
           {NAV_ITEMS.map((item) => (
             <Link

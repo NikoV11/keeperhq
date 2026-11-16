@@ -32,7 +32,7 @@ export default async function AdminPackagesPage() {
                 <Field label="Display name">
                   <input name="name" required defaultValue={pkg.name} className={inputClass} />
                 </Field>
-                <Field label="Price" hint="Text only, e.g. $44.99">
+                <Field label="Price" hint="Text only, e.g. $39.99">
                   <input
                     name="price_display"
                     required

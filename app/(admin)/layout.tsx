@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/logo";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { logoutAction } from "../(auth)/actions";
@@ -50,10 +51,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen bg-brand-gray-light">
       <aside className="flex w-64 shrink-0 flex-col bg-brand-black text-brand-white">
-        <Link href="/admin" className="px-6 py-6 text-xl font-bold tracking-wide">
-          KEEPER<span className="text-brand-green-light">HQ</span>
-          <span className="mt-0.5 block text-xs font-normal text-gray-400">Website Manager</span>
-        </Link>
+        <div className="px-6 py-6">
+          <Logo size="sm" href="/admin" />
+          <span className="mt-1 block text-xs text-gray-400">Website Manager</span>
+        </div>
 
         <nav className="flex-1 overflow-y-auto px-3 pb-4">
           {SECTIONS.map((section) => (

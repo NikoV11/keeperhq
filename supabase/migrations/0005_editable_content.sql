@@ -226,9 +226,9 @@ insert into public.legal_documents (slug, title, body, sort_order) values
  E'This document is a placeholder. The final KeeperHQ policy text is pending legal review and will be published here before launch.\n\nThis policy will describe the cookies KeeperHQ uses, including the session cookies required for login and any analytics cookies, and how to manage them.', 6);
 
 insert into public.membership_packages (key, name, price_display, price_note, evaluation_note, features, featured, sort_order) values
-('bronze', 'Bronze', '$12.99', '/month', 'No individual evaluation',
+('bronze', 'Bronze', '$14.99', '/month', 'No individual evaluation',
  '{"Full access to the KeeperHQ training library","All technical categories","Train anywhere, anytime"}', false, 1),
-('silver', 'Silver', '$44.99', '/month', '1 individual evaluation per month',
+('silver', 'Silver', '$39.99', '/month', '1 individual evaluation per month',
  '{"All training videos","Up to 3 uploaded training clips","Written and verbal feedback","30-minute Zoom evaluation"}', true, 2),
 ('gold', 'Gold', '$59.99', '/month', '2 individual evaluations per month',
  '{"All training videos","Up to 3 uploaded clips per evaluation","Written and verbal feedback","30-minute Zoom evaluations","More consistent individual development"}', false, 3);

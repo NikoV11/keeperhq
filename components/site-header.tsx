@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Logo } from "@/components/logo";
 import { useState } from "react";
 import { NAV_LINKS } from "@/content/site";
 
@@ -10,9 +11,7 @@ export function SiteHeader({ isLoggedIn }: { isLoggedIn: boolean }) {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-brand-black text-brand-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
-        <Link href="/" className="text-xl font-bold tracking-wide shrink-0">
-          KEEPER<span className="text-brand-green-light">HQ</span>
-        </Link>
+        <Logo size="md" className="shrink-0" />
 
         <nav className="hidden items-center gap-5 lg:flex">
           {NAV_LINKS.map((link) => (

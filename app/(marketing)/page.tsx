@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { Section, SectionHeading } from "@/components/section";
 import { PackageCards } from "@/components/package-cards";
@@ -55,6 +56,14 @@ export default async function HomePage() {
           }}
         />
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:py-32">
+          <Image
+            src="/images/brand/logo-badge.png"
+            alt=""
+            width={120}
+            height={120}
+            priority
+            className="mb-6 h-20 w-20 sm:h-28 sm:w-28"
+          />
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
             KEEPER<span className="text-brand-green-light">HQ</span>
           </h1>
