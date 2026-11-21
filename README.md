@@ -43,8 +43,8 @@ This is your database. It holds your training videos, your members, and your web
    - **anon public** key
    - **service_role** key — *treat this one like a password, never share it*
 4. Now set up your database tables. In the left sidebar click **SQL Editor** → **New query**.
-5. Open the folder `supabase/migrations` in this project. You'll see nine files numbered
-   `0001` to `0009`. **One at a time, in order**: open the file, copy all of its text, paste
+5. Open the folder `supabase/migrations` in this project. You'll see ten files numbered
+   `0001` to `0010`. **One at a time, in order**: open the file, copy all of its text, paste
    it into the SQL Editor, and click **Run**. Wait for "Success" before moving to the next.
 
    The last one loads your 34 real testimonials, so they'll be on your site straight away.
@@ -320,7 +320,7 @@ See "Connecting your own domain" at the end of Part 3.
 
 ## Before you launch — checklist
 
-- [ ] All nine migration files run in Supabase, in order
+- [ ] All ten migration files run in Supabase, in order
 - [ ] Your admin account works at `/admin`
 - [ ] Real training videos uploaded, with up to 3 marked as free samples
 - [ ] Team photos, bios, and CVs added

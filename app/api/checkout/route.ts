@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { getStripe } from "@/lib/stripe/client";
 import { getProduct } from "@/lib/stripe/products";
 
@@ -43,7 +44,16 @@ export async function POST(request: Request) {
       metadata: { supabase_user_id: user.id },
     });
     customerId = customer.id;
-    await supabase.from("profiles").update({ stripe_customer_id: customerId }).eq("id", user.id);
+    // Members can't write this column themselves (migration 0010), so save it with the
+    // service-role key. Without it the webhook can't link later subscription events.
+    const { error: saveError } = await createAdminClient()
+      .from("profiles")
+      .update({ stripe_customer_id: customerId })
+      .eq("id", user.id);
+    if (saveError) {
+      console.error("[checkout] could not save stripe_customer_id", saveError);
+      return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
+    }
   }
 
   // Validate the referral code server-side; never trust a client-supplied discount.
